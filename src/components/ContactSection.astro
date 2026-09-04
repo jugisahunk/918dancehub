@@ -1,0 +1,156 @@
+---
+import { site } from '../data/site';
+
+// Inquiry form schema: docs/content-model.md#inquiry. Posts to Formspree
+// (ADR-0001) — FORMSPREE_FORM_ID needs a real form id before launch.
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
+---
+
+<section class="contact-band" id="contact">
+  <div class="container contact-two-col">
+    <div>
+      <h2>Come see the space</h2>
+      <p class="body">
+        Tell us what you're planning and we'll get back to you — no booking system yet, just a real
+        reply from Christina.
+      </p>
+      <div class="contact-rows">
+        <a class="contact-row" href={`mailto:${site.email}`}>
+          <span class="label">Email</span>
+          <span class="value">{site.email}</span>
+        </a>
+        <a class="contact-row" href={`tel:${site.phone}`}>
+          <span class="label">Phone</span>
+          <span class="value">{site.phone}</span>
+        </a>
+        <div class="contact-row static">
+          <span class="label">Studio</span>
+          <span class="value">Midtown Tulsa Adjacent</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="inquiry-form" action={`https://formspree.io/f/${formspreeId}`} method="POST">
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" required autocomplete="name" />
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+      <label>
+        <span>Interest</span>
+        <select name="interest" required>
+          <option value="Event Rental">Event Rental</option>
+          <option value="Dance Class">Dance Class</option>
+          <option value="Teach With Us">Teach With Us</option>
+          <option value="General Inquiry">General Inquiry</option>
+        </select>
+      </label>
+      <label>
+        <span>Date <em>(optional)</em></span>
+        <input type="date" name="date" />
+      </label>
+      <label>
+        <span>Message</span>
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+      <button type="submit" class="cta-pill">Send Inquiry</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact-band {
+    padding: 3rem 0;
+    border-top: 1px solid var(--hairline-neutral);
+  }
+
+  h2 {
+    font-size: clamp(1.7rem, 5.5vw, 2.4rem);
+  }
+
+  .contact-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .body {
+    margin: 1rem 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .contact-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+    text-decoration: none;
+    color: var(--text-3);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    transition: color 0.2s ease;
+  }
+
+  .contact-row:hover {
+    color: var(--gold-hover);
+  }
+
+  .contact-row .label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: var(--text-4);
+  }
+
+  .inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .inquiry-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-4);
+  }
+
+  .inquiry-form input,
+  .inquiry-form select,
+  .inquiry-form textarea {
+    font: inherit;
+    text-transform: none;
+    letter-spacing: normal;
+    background: var(--surface);
+    border: 1px solid var(--hairline-neutral);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+    color: var(--text-2);
+    min-height: 44px;
+  }
+
+  .inquiry-form textarea {
+    resize: vertical;
+    min-height: 88px;
+  }
+
+  .inquiry-form button {
+    align-self: flex-start;
+    border: none;
+  }
+
+  @media (min-width: 768px) {
+    .contact-two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,180 @@
+---
+import LogoMark from './LogoMark.astro';
+import { site } from '../data/site';
+
+const navLinks = [
+  { label: 'Classes', href: '#classes' },
+  { label: 'Venue', href: '#venue' },
+  { label: 'Events', href: '#events' },
+  { label: 'Teach', href: '#teach' },
+];
+---
+
+<header>
+  <div class="container header-inner">
+    <a class="logo-row" href="#top" aria-label="918 Dance Hub home">
+      <LogoMark />
+      <span class="logo-text-lockup">
+        <span class="name">{site.shortName}</span>
+        <span class="tag">{site.tagline}</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      <a href="#contact" class="cta-pill">Book a Tour</a>
+    </nav>
+
+    <button
+      class="hamburger"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle menu"
+    >
+      <span></span>
+      <span class="short"></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      menu.hidden = open;
+    });
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.hidden = true;
+      });
+    });
+  }
+</script>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(8, 8, 10, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+    padding: 0.9rem 0;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  .logo-text-lockup {
+    line-height: 1.15;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-text-lockup .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+  }
+
+  .logo-text-lockup .tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--teal);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: none;
+    gap: 1.75rem;
+    align-items: center;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a:not(.cta-pill) {
+    color: var(--text-3);
+    text-decoration: none;
+  }
+
+  .hamburger {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--gold-light);
+  }
+
+  .hamburger span.short {
+    width: 14px;
+    background: var(--teal);
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--hairline-neutral);
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-menu a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    color: var(--text-3);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  @media (min-width: 768px) {
+    .nav-links {
+      display: flex;
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>

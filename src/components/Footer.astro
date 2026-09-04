@@ -1,0 +1,154 @@
+---
+import { footer } from '../data/footer';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+const socials = [
+  { label: 'IG', href: footer.social.instagram },
+  { label: 'FB', href: footer.social.facebook },
+  { label: 'TT', href: footer.social.tiktok },
+];
+---
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <h3>{site.legalName}</h3>
+      <p class="tagline">
+        Dance classes and event rentals in Tulsa. More than a studio, it's a place to belong.
+      </p>
+      <div class="socials">
+        {
+          socials.map((s) =>
+            s.href ? (
+              <a class="social-tile" href={s.href} target="_blank" rel="noreferrer">
+                {s.label}
+              </a>
+            ) : (
+              <span class="social-tile pending" title="Social URL pending">
+                {s.label}
+              </span>
+            ),
+          )
+        }
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="col-heading">Explore</div>
+      {footer.explore.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+    <div class="footer-col">
+      <div class="col-heading">Info</div>
+      {
+        footer.info.map((link) =>
+          link.href ? (
+            <a href={link.href}>{link.label}</a>
+          ) : (
+            <span class="pending" title="Destination pending">
+              {link.label}
+            </span>
+          ),
+        )
+      }
+    </div>
+  </div>
+  <div class="container bottom-bar">
+    <span>&copy; {year} {site.legalName}. All rights reserved.</span>
+    <span>{site.domain}</span>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--bg-deep);
+    border-top: 1px solid var(--hairline);
+    padding: 2.5rem 0 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+  }
+
+  .tagline {
+    margin: 0.6rem 0 1rem;
+    line-height: 1.55;
+    max-width: 40ch;
+  }
+
+  .socials {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .social-tile {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid var(--hairline-neutral);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    text-decoration: none;
+    color: var(--text-3);
+  }
+
+  .social-tile.pending {
+    opacity: 0.4;
+  }
+
+  .col-heading {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-col a,
+  .footer-col span {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-3);
+  }
+
+  .footer-col span.pending {
+    color: var(--text-5);
+  }
+
+  .bottom-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.8rem;
+    color: var(--text-5);
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+
+    .bottom-bar {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

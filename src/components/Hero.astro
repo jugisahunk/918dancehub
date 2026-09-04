@@ -1,0 +1,141 @@
+---
+// Hero fill: illustration direction line-art dancing couple (prototype
+// variant C, wayfinder #9) — stands in for real venue/dancer photography,
+// which isn't available until after Grand Opening.
+---
+
+<section class="hero-band" id="top">
+  <div class="container hero-two-col">
+    <div>
+      <div class="hero-badge">Opening Fall 2026 &middot; Tulsa</div>
+      <h1 class="hero-h1">Where moves<br /><span class="script accent">create memories</span></h1>
+      <p class="hero-sub">
+        A dance studio and event venue under one roof. Classes for every level and every style, plus
+        a space built for birthdays, weddings, showers, parties, and corporate events.
+      </p>
+      <div class="hero-ctas">
+        <a href="#classes" class="cta-pill">See Class Schedule</a>
+        <a href="#venue" class="cta-outline">Rent the Venue</a>
+      </div>
+    </div>
+    <div class="image-frame">
+      <div class="image-frame-inner">
+        <svg width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="400" fill="var(--bg-deep)" />
+          <g fill="none" stroke="var(--gold-light)" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="165" cy="120" r="16" />
+            <path d="M165 136 L165 210" />
+            <path d="M165 155 L120 190" />
+            <path d="M165 155 L215 175" />
+            <path d="M165 210 L135 280" />
+            <path d="M165 210 L195 270" />
+          </g>
+          <g fill="none" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="245" cy="135" r="16" />
+            <path d="M245 151 L245 220" />
+            <path d="M245 170 L290 195" />
+            <path d="M245 170 L215 175" />
+            <path d="M245 220 L215 285" />
+            <path d="M245 220 L280 275" />
+          </g>
+          <path d="M120 320 Q200 300 300 320" stroke="var(--gold)" stroke-width="1" opacity=".4" fill="none" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-band {
+    padding: 3.5rem 0;
+  }
+
+  .hero-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--teal);
+    border-radius: 999px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--teal-light);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-h1 {
+    font-size: clamp(2.4rem, 9vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .hero-h1 .accent {
+    font-weight: 400;
+    font-size: 1.15em;
+    background: var(--gold-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-sub {
+    max-width: 46ch;
+    margin: 1.2rem 0 1.8rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .image-frame {
+    border-radius: 20px;
+    padding: 10px;
+    background: linear-gradient(
+      140deg,
+      rgba(212, 175, 55, 0.55),
+      rgba(42, 168, 163, 0.25),
+      rgba(212, 175, 55, 0.15)
+    );
+    height: clamp(260px, 60vw, 520px);
+    min-width: 0;
+  }
+
+  .image-frame-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    background: var(--bg-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  @media (max-width: 767px) {
+    .hero-two-col {
+      text-align: center;
+    }
+
+    .hero-ctas {
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,135 @@
+/* Design tokens: docs/design/handoff-v1/README.md. Visual direction:
+   Illustration (line-art), tentative per wayfinder #9 — see
+   docs/design/prototype-visual-direction.html on prototype/visual-direction. */
+:root {
+  --bg: #08080a;
+  --bg-deep: #050506;
+  --surface: rgba(255, 255, 255, 0.025);
+  --surface-grad: linear-gradient(170deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  --text: #f6f2e8;
+  --text-2: #f0ece3;
+  --text-3: #b1aba1;
+  --text-4: #8d877d;
+  --text-5: #6f6a62;
+  --gold: #d4af37;
+  --gold-light: #e9c76a;
+  --gold-hover: #f7e6b4;
+  --gold-grad: linear-gradient(105deg, #b8891f, #f0d68a 45%, #b8891f);
+  --teal: #2aa8a3;
+  --teal-light: #7fd6d2;
+  --hairline: rgba(212, 175, 55, 0.25);
+  --hairline-neutral: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-3);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  padding-bottom: 74px; /* clears the fixed bottom nav on mobile */
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--text);
+  margin: 0;
+}
+
+.script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2.5rem;
+  }
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--teal);
+}
+
+a {
+  color: var(--gold-light);
+}
+
+a:hover {
+  color: var(--gold-hover);
+}
+
+.cta-pill,
+.cta-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  min-height: 52px;
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.cta-pill {
+  background: var(--gold-grad);
+  color: #1a1204;
+  border: none;
+}
+
+.cta-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(212, 175, 55, 0.3);
+  color: #1a1204;
+}
+
+.cta-outline {
+  background: transparent;
+  color: var(--teal-light);
+  border: 1px solid var(--teal);
+}
+
+.cta-outline:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal-light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+
+const classes = (await getCollection('classes')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="classes-band" id="classes">
+  <div class="container classes-two-col">
+    <div>
+      <div class="eyebrow">Dance Classes</div>
+      <h2>All levels. All styles. No partner required.</h2>
+      <p class="body">
+        Group classes, series, and private lessons taught by instructors who love teaching as much
+        as dancing. Real names and times are on their way — this schedule fills in as classes are
+        confirmed.
+      </p>
+      <a href="#contact" class="cta-outline">Reserve a Spot</a>
+    </div>
+    <div class="schedule-list">
+      {
+        classes.map((c) => (
+          <div class="schedule-row">
+            <div>
+              <div class="class-name">{c.data.name}</div>
+              <div class="class-level">{c.data.level}</div>
+            </div>
+            <div class="class-time">{c.data.schedule}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .classes-band {
+    padding: 3rem 0;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: radial-gradient(120% 80% at 50% 0%, rgba(212, 175, 55, 0.07), transparent 60%);
+  }
+
+  .classes-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .body {
+    margin: 1rem 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .schedule-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0.75rem;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+  }
+
+  .schedule-row:hover {
+    background: rgba(42, 168, 163, 0.08);
+  }
+
+  .schedule-row + .schedule-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .class-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-2);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  .class-level {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: var(--text-4);
+  }
+
+  .class-time {
+    color: var(--teal-light);
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 768px) {
+    .classes-two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

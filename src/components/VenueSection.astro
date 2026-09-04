@@ -1,0 +1,120 @@
+---
+import { venue } from '../data/venue';
+---
+
+<section class="venue-band" id="venue">
+  <div class="container venue-two-col">
+    <div class="image-frame">
+      <div class="image-frame-inner">
+        <svg width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="400" fill="var(--bg-deep)" />
+          <g stroke="var(--gold)" stroke-width="1" opacity=".55" fill="none">
+            <circle cx="200" cy="200" r="60" />
+            <circle cx="200" cy="200" r="110" />
+            <circle cx="200" cy="200" r="170" />
+          </g>
+          <g stroke="var(--teal)" stroke-width="1.3" opacity=".7" fill="none">
+            <path d="M200 200 L200 20" />
+            <path d="M200 200 L360 120" />
+            <path d="M200 200 L60 300" />
+            <path d="M200 200 L340 320" />
+          </g>
+          <circle cx="200" cy="200" r="5" fill="var(--gold-light)" />
+        </svg>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow">Event Rentals</div>
+      <h2>{venue.description}</h2>
+      <p class="body">{venue.locationCopy} — the exact address goes live at Grand Opening.</p>
+      <div class="stat-grid">
+        {
+          venue.stats.map((stat) => (
+            <div class="stat-tile">
+              <div class="stat-value">
+                {stat.value}
+                {stat.pending && <span class="pending-mark" title="Placeholder — pending real figures (wayfinder #13)">*</span>}
+              </div>
+              <div class="stat-label">{stat.label}</div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="pending-note">* Approximate — final figures pending.</p>
+      <a href="#contact" class="cta-pill">Check Availability</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .venue-band {
+    padding: 3rem 0;
+  }
+
+  .venue-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .image-frame {
+    border-radius: 18px;
+    padding: 1px;
+    border: 1px solid var(--gold);
+    height: clamp(240px, 55vw, 460px);
+    min-width: 0;
+  }
+
+  .image-frame-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 17px;
+    overflow: hidden;
+  }
+
+  .body {
+    margin: 1rem 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--gold-light);
+  }
+
+  .pending-mark {
+    color: var(--teal-light);
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-4);
+  }
+
+  .pending-note {
+    font-size: 0.78rem;
+    color: var(--text-5);
+    margin: 0 0 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .venue-two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

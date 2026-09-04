@@ -1,0 +1,63 @@
+---
+const items = [
+  { href: '#classes', label: 'Classes', mark: 'I' },
+  { href: '#venue', label: 'Venue', mark: 'II' },
+  { href: '#events', label: 'Events', mark: 'III' },
+  { href: '#contact', label: 'Contact', mark: 'IV' },
+];
+---
+
+<nav class="bottom-nav" aria-label="Quick jump">
+  {
+    items.map((item) => (
+      <a href={item.href}>
+        <span class="mark">{item.mark}</span>
+        <span class="label">{item.label}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: rgba(10, 10, 12, 0.96);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .bottom-nav a {
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    text-decoration: none;
+  }
+
+  .mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  .label {
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-4);
+  }
+
+  @media (min-width: 768px) {
+    .bottom-nav {
+      display: none;
+    }
+  }
+</style>
