@@ -1,0 +1,423 @@
+<!--
+  PROTOTYPE — throwaway code answering: "What should the site's imagery/logo
+  look like at Site Launch, given no real logo and no real venue/dancer
+  photos exist until after Grand Opening (10/10/2026)?"
+
+  Three structurally different variants, switchable via ?variant=A|B|C
+  (also via the floating bottom bar / left-right arrow keys):
+    A — Abstract/geometric pattern work (dance-floor line/arc motifs)
+    B — Typographic-led (no imagery at all; single-column hero)
+    C — Illustration (minimalist line-art dance figures/icons)
+
+  Applies each direction to the header logo, hero (the primary photo slot),
+  and the feature-grid icons (the other place handoff-v1 stands in real
+  assets with roman numerals). Reuses the design tokens from
+  docs/design/handoff-v1/README.md so this reads as "the real site," not a
+  moodboard.
+
+  Resolves wayfinder ticket #9 (jugisahunk/918dancehub). Not production code.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>918 Dance Hub — Visual Direction Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080a;
+    --bg-deep: #050506;
+    --surface: rgba(255,255,255,.025);
+    --surface-grad: linear-gradient(170deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+    --text: #f6f2e8;
+    --text-2: #f0ece3;
+    --text-3: #b1aba1;
+    --text-4: #8d877d;
+    --text-5: #6f6a62;
+    --gold: #d4af37;
+    --gold-light: #e9c76a;
+    --gold-hover: #f7e6b4;
+    --gold-grad: linear-gradient(105deg, #b8891f, #f0d68a 45%, #b8891f);
+    --teal: #2aa8a3;
+    --teal-light: #7fd6d2;
+    --hairline: rgba(212,175,55,.25);
+    --hairline-neutral: rgba(255,255,255,.08);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-3);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding-bottom: 90px; /* clear the switcher bar */
+  }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: var(--text); margin: 0; }
+  .script { font-family: 'Great Vibes', cursive; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .eyebrow { font-size: .7rem; text-transform: uppercase; letter-spacing: .28em; color: var(--teal); }
+  a { color: var(--gold-light); }
+
+  /* ---- header ---- */
+  header {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(8,8,10,.88); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+    padding: .9rem 0;
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; }
+  .logo-row { display: flex; align-items: center; gap: .7rem; }
+  .logo-text-lockup { line-height: 1.15; }
+  .logo-text-lockup .name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.15rem; color: var(--text); }
+  .logo-text-lockup .tag { font-size: .62rem; letter-spacing: .28em; color: var(--teal); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+  .nav-links a { color: var(--text-3); text-decoration: none; }
+  .cta-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: .75rem 1.4rem; border-radius: 999px; min-height: 44px;
+    background: var(--gold-grad); color: #1a1204; font-weight: 650;
+    font-size: .8rem; text-transform: uppercase; letter-spacing: .1em;
+    text-decoration: none; border: none; cursor: pointer;
+  }
+  .cta-outline {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: .75rem 1.4rem; border-radius: 999px; min-height: 44px;
+    background: transparent; color: var(--teal-light); font-weight: 650;
+    font-size: .8rem; text-transform: uppercase; letter-spacing: .1em;
+    text-decoration: none; border: 1px solid var(--teal);
+  }
+
+  /* logo marks per variant */
+  .mark { width: 42px; height: 42px; display: grid; place-items: center; flex-shrink: 0; }
+  [data-variant="A"] .mark-a, [data-variant="C"] .mark-c { display: grid; }
+  .mark-a, .mark-c { display: none; border-radius: 50%; border: 1px solid var(--hairline); }
+  [data-variant="B"] .mark-wordmark { display: block; }
+  .mark-wordmark { display: none; }
+  .mark-wordmark .big {
+    font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem;
+    background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    line-height: 1;
+  }
+  .mark-wordmark .rule { width: 34px; height: 2px; background: var(--gold-grad); margin-top: 3px; }
+
+  /* ---- hero ---- */
+  .hero-band { padding: 3.5rem 0; }
+  .hero-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .hero-badge {
+    display: inline-block; padding: .4rem 1rem; border: 1px solid var(--teal); border-radius: 999px;
+    font-size: .68rem; text-transform: uppercase; letter-spacing: .22em; color: var(--teal-light); margin-bottom: 1.2rem;
+  }
+  .hero-h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.02; letter-spacing: -.01em; }
+  .hero-h1 .accent {
+    font-family: 'Great Vibes', cursive; font-weight: 400; font-size: 1.15em;
+    background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-sub { max-width: 46ch; margin: 1.2rem 0 1.8rem; line-height: 1.6; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .image-frame {
+    border-radius: 20px; padding: 10px;
+    background: linear-gradient(140deg, rgba(212,175,55,.55), rgba(42,168,163,.25), rgba(212,175,55,.15));
+    height: clamp(260px, 40vw, 460px);
+  }
+  .image-frame-inner {
+    width: 100%; height: 100%; border-radius: 14px; background: var(--bg-deep);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+
+  /* variant B: single-column typographic hero, no image frame */
+  .hero-typographic { display: none; text-align: center; padding: 4rem 0 3rem; position: relative; }
+  [data-variant="B"] .hero-two-col { display: none; }
+  [data-variant="B"] .hero-typographic { display: block; }
+  .hero-typographic::before {
+    content: ''; position: absolute; inset: -20% 10% auto 10%; height: 420px;
+    background: radial-gradient(60% 60% at 50% 30%, rgba(212,175,55,.12), transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .hero-typographic .inner { position: relative; z-index: 1; }
+  .hero-typographic .hero-h1 { font-size: clamp(2.8rem, 9vw, 5.6rem); }
+  .hero-typographic .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-typographic .hero-ctas { justify-content: center; }
+  [data-variant="A"] .hero-typographic, [data-variant="C"] .hero-typographic { display: none; }
+  [data-variant="A"] .hero-two-col, [data-variant="C"] .hero-two-col { display: grid; }
+
+  /* ---- feature grid ---- */
+  .features { padding: 3rem 0; }
+  .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .feature-card {
+    border: 1px solid var(--hairline); border-radius: 16px; padding: 1.5rem 1.35rem;
+    background: var(--surface-grad);
+  }
+  .feature-mark {
+    width: 44px; height: 44px; border: 1px solid var(--teal); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin-bottom: .9rem;
+    color: var(--teal-light); font-family: 'Cormorant Garamond', serif; font-weight: 700;
+  }
+  .feature-title { font-size: .82rem; text-transform: uppercase; letter-spacing: .18em; color: var(--gold-light); margin-bottom: .5rem; }
+  .feature-body { font-size: .92rem; line-height: 1.55; }
+
+  [data-variant] .fmark-a, [data-variant] .fmark-b, [data-variant] .fmark-c { display: none; }
+  [data-variant="A"] .fmark-a { display: flex; }
+  [data-variant="B"] .fmark-b { display: block; width: 100%; border: none; border-radius: 0; justify-content: flex-start; }
+  [data-variant="C"] .fmark-c { display: flex; }
+  [data-variant="B"] .feature-mark { border: none; width: auto; height: auto; margin-bottom: .4rem; }
+  [data-variant="B"] .feature-title { font-size: 1.05rem; letter-spacing: .04em; font-family: 'Cormorant Garamond', serif; font-weight: 700; text-transform: none; color: var(--text); }
+
+  /* ---- variant label banner ---- */
+  .variant-banner {
+    text-align: center; padding: .6rem; font-size: .78rem; letter-spacing: .08em;
+    color: var(--bg); background: var(--gold-light); text-transform: uppercase; font-weight: 650;
+  }
+
+  /* ---- switcher bar ---- */
+  .switcher {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+    display: flex; align-items: center; gap: .9rem;
+    background: #17140c; border: 1px solid var(--gold); border-radius: 999px;
+    padding: .6rem .5rem .6rem 1rem; box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    z-index: 100; font-size: .82rem;
+  }
+  .switcher button {
+    width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--hairline-neutral);
+    background: transparent; color: var(--gold-light); cursor: pointer; font-size: 1rem;
+  }
+  .switcher button:hover { border-color: var(--gold); }
+  .switcher .label { color: var(--text-2); min-width: 210px; text-align: center; }
+  .switcher .label b { color: var(--gold-light); }
+
+  @media (max-width: 767px) {
+    .hero-two-col { grid-template-columns: 1fr; text-align: center; }
+    .hero-ctas { justify-content: center; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body data-variant="A">
+
+  <div class="variant-banner">PROTOTYPE — Visual direction <span id="variant-name-banner"></span> — not the real site</div>
+
+  <header>
+    <div class="container header-inner">
+      <div class="logo-row">
+        <!-- Variant A: geometric ring mark -->
+        <div class="mark mark-a">
+          <svg width="42" height="42" viewBox="0 0 42 42">
+            <circle cx="21" cy="21" r="19" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".6"/>
+            <circle cx="21" cy="21" r="13" fill="none" stroke="var(--gold-light)" stroke-width="1"/>
+            <path d="M21 21 L21 5 A16 16 0 0 1 34 27" fill="none" stroke="var(--teal)" stroke-width="1.4"/>
+            <circle cx="21" cy="21" r="2.5" fill="var(--gold-light)"/>
+          </svg>
+        </div>
+        <!-- Variant C: line-art step mark -->
+        <div class="mark mark-c">
+          <svg width="42" height="42" viewBox="0 0 42 42">
+            <circle cx="21" cy="21" r="19" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".6"/>
+            <path d="M15 14c-2 0-3 2-2 4 1 2 4 2 5 0 1-2-1-4-3-4z" fill="none" stroke="var(--gold-light)" stroke-width="1.3"/>
+            <path d="M27 20c2 0 3 2 2 4-1 2-4 2-5 0-1-2 1-4 3-4z" fill="none" stroke="var(--teal)" stroke-width="1.3"/>
+            <path d="M16 20q5 6 10 2" fill="none" stroke="var(--gold-light)" stroke-width="1" opacity=".7"/>
+          </svg>
+        </div>
+        <!-- Variant B: pure wordmark, no icon -->
+        <div class="mark-wordmark">
+          <div class="big">918</div>
+          <div class="rule"></div>
+        </div>
+        <div class="logo-text-lockup">
+          <div class="name">918 Dance Hub</div>
+          <div class="tag">Dance &middot; Events &middot; Tulsa</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#classes">Classes</a>
+        <a href="#venue">Venue</a>
+        <a href="#events">Events</a>
+        <a href="#teach">Teach</a>
+        <a href="#contact" class="cta-pill" style="text-transform:uppercase;">Book a Tour</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ===== HERO — variants A & C (two-column, image frame) ===== -->
+    <section class="hero-band">
+      <div class="hero-two-col">
+        <div>
+          <div class="hero-badge">Opening Fall 2026 &middot; Tulsa</div>
+          <h1 class="hero-h1">Where moves<br><span class="accent">create memories</span></h1>
+          <p class="hero-sub">A dance studio and event venue under one roof. Classes for every level and every style, plus a space built for birthdays, weddings, showers, parties, and corporate events.</p>
+          <div class="hero-ctas">
+            <a href="#classes" class="cta-pill">See Class Schedule</a>
+            <a href="#venue" class="cta-outline">Rent the Venue</a>
+          </div>
+        </div>
+        <div class="image-frame">
+          <div class="image-frame-inner">
+            <!-- Variant A fill: abstract geometric / dance-floor pattern -->
+            <svg id="hero-fill-a" width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" style="display:none;">
+              <rect width="400" height="400" fill="#050506"/>
+              <g stroke="#d4af37" stroke-width="1" opacity=".55" fill="none">
+                <circle cx="200" cy="200" r="60"/>
+                <circle cx="200" cy="200" r="110"/>
+                <circle cx="200" cy="200" r="170"/>
+              </g>
+              <g stroke="#2aa8a3" stroke-width="1.3" opacity=".7" fill="none">
+                <path d="M200 200 L200 20"/>
+                <path d="M200 200 L360 120"/>
+                <path d="M200 200 L60 300"/>
+                <path d="M200 200 L340 320"/>
+              </g>
+              <circle cx="200" cy="200" r="5" fill="#e9c76a"/>
+              <g stroke="#e9c76a" stroke-width=".6" opacity=".35" fill="none">
+                <circle cx="200" cy="200" r="230"/>
+              </g>
+            </svg>
+            <!-- Variant C fill: line-art dancing couple -->
+            <svg id="hero-fill-c" width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" style="display:none;">
+              <rect width="400" height="400" fill="#050506"/>
+              <g fill="none" stroke="#e9c76a" stroke-width="2.2" stroke-linecap="round">
+                <circle cx="165" cy="120" r="16"/>
+                <path d="M165 136 L165 210"/>
+                <path d="M165 155 L120 190"/>
+                <path d="M165 155 L215 175"/>
+                <path d="M165 210 L135 280"/>
+                <path d="M165 210 L195 270"/>
+              </g>
+              <g fill="none" stroke="#2aa8a3" stroke-width="2.2" stroke-linecap="round">
+                <circle cx="245" cy="135" r="16"/>
+                <path d="M245 151 L245 220"/>
+                <path d="M245 170 L290 195"/>
+                <path d="M245 170 L215 175"/>
+                <path d="M245 220 L215 285"/>
+                <path d="M245 220 L280 275"/>
+              </g>
+              <path d="M120 320 Q200 300 300 320" stroke="#d4af37" stroke-width="1" opacity=".4" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== HERO — variant B (typographic, no image) ===== -->
+      <div class="hero-typographic">
+        <div class="inner">
+          <div class="hero-badge">Opening Fall 2026 &middot; Tulsa</div>
+          <h1 class="hero-h1">Where moves<br><span class="accent">create memories</span></h1>
+          <p class="hero-sub">A dance studio and event venue under one roof. Classes for every level and every style, plus a space built for birthdays, weddings, showers, parties, and corporate events.</p>
+          <div class="hero-ctas">
+            <a href="#classes" class="cta-pill">See Class Schedule</a>
+            <a href="#venue" class="cta-outline">Rent the Venue</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE GRID ===== -->
+    <section class="features">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-mark fmark-a">
+            <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1"/><path d="M10 10L10 2" stroke="currentColor" stroke-width="1.2"/></svg>
+          </div>
+          <div class="feature-mark fmark-b">I</div>
+          <div class="feature-mark fmark-c">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M6 4c-1.5 0-2.2 1.5-1.5 3 .7 1.5 3 1.5 3.5 0 .5-1.5-.5-3-2-3z"/><path d="M6 8v6l3 2"/></svg>
+          </div>
+          <div class="feature-title">Dance Classes</div>
+          <div class="feature-body">All levels, all styles. Group classes, series, and private lessons.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-mark fmark-a">
+            <svg width="20" height="20" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1" transform="rotate(45 10 10)"/></svg>
+          </div>
+          <div class="feature-mark fmark-b">II</div>
+          <div class="feature-mark fmark-c">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 16V8l6-4 6 4v8"/><path d="M8 16v-5h4v5"/></svg>
+          </div>
+          <div class="feature-title">Event Rentals</div>
+          <div class="feature-body">Birthdays, weddings, showers, parties and more, on a floor built to host.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-mark fmark-a">
+            <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2" fill="currentColor"/><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/></svg>
+          </div>
+          <div class="feature-mark fmark-b">III</div>
+          <div class="feature-mark fmark-c">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="6" r="2"/><path d="M4 17c1-4 4-6 6-6s5 2 6 6"/></svg>
+          </div>
+          <div class="feature-title">Social Events</div>
+          <div class="feature-body">Monthly socials and themed nights. Dance, connect, make memories.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-mark fmark-a">
+            <svg width="20" height="20" viewBox="0 0 20 20"><path d="M2 10h16M10 2v16" stroke="currentColor" stroke-width="1"/></svg>
+          </div>
+          <div class="feature-mark fmark-b">IV</div>
+          <div class="feature-mark fmark-c">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="7" cy="6" r="2"/><circle cx="13" cy="6" r="2"/><path d="M3 16c.5-3 2.2-5 4-5s3.5 2 4 5"/><path d="M9 16c.5-3 2.2-5 4-5s3.5 2 4 5"/></svg>
+          </div>
+          <div class="feature-title">A Community</div>
+          <div class="feature-body">Built on passion, respect and good vibes. Come once, you'll come back.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="switcher">
+    <button id="prev" aria-label="Previous variant">&#8592;</button>
+    <span class="label" id="switcher-label"></span>
+    <button id="next" aria-label="Next variant">&#8594;</button>
+  </div>
+
+<script>
+  const VARIANTS = {
+    A: 'Abstract / Geometric',
+    B: 'Typographic-led',
+    C: 'Illustration',
+  };
+  const keys = Object.keys(VARIANTS);
+
+  function currentVariant() {
+    const p = new URLSearchParams(location.search).get('variant');
+    return keys.includes(p) ? p : 'A';
+  }
+
+  function render(variant) {
+    document.body.setAttribute('data-variant', variant);
+    document.getElementById('switcher-label').innerHTML =
+      '<b>' + variant + '</b> — ' + VARIANTS[variant];
+    document.getElementById('variant-name-banner').textContent =
+      variant + ' (' + VARIANTS[variant] + ')';
+    document.getElementById('hero-fill-a').style.display = variant === 'A' ? 'block' : 'none';
+    document.getElementById('hero-fill-c').style.display = variant === 'C' ? 'block' : 'none';
+  }
+
+  function setVariant(variant) {
+    const url = new URL(location.href);
+    url.searchParams.set('variant', variant);
+    history.replaceState(null, '', url);
+    render(variant);
+  }
+
+  function cycle(dir) {
+    const idx = keys.indexOf(currentVariant());
+    const next = keys[(idx + dir + keys.length) % keys.length];
+    setVariant(next);
+  }
+
+  document.getElementById('prev').addEventListener('click', () => cycle(-1));
+  document.getElementById('next').addEventListener('click', () => cycle(1));
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
+    if (e.key === 'ArrowLeft') cycle(-1);
+    if (e.key === 'ArrowRight') cycle(1);
+  });
+
+  render(currentVariant());
+</script>
+</body>
+</html>
