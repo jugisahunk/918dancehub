@@ -3,12 +3,14 @@
   look like at Site Launch, given no real logo and no real venue/dancer
   photos exist until after Grand Opening (10/10/2026)?"
 
-  Four structurally different variants, switchable via ?variant=A|B|C|D
+  Five structurally different variants, switchable via ?variant=A|B|C|D|E
   (also via the floating bottom bar / left-right arrow keys):
     A — Abstract/geometric pattern work (dance-floor line/arc motifs)
     B — Typographic-led (no imagery at all; single-column hero)
     C — Illustration (minimalist line-art dance figures/icons)
     D — Art Deco (symmetric sunburst medallion, stepped frame, Poiret One)
+    E — Art Deco, A's two-column layout (deco medallion inside A's image
+        frame, deco logo/type, keeps A's badge/CTA composition)
 
   Applies each direction to the header logo, hero (the primary photo slot),
   and the feature-grid icons (the other place handoff-v1 stands in real
@@ -93,7 +95,7 @@
 
   /* logo marks per variant */
   .mark { width: 42px; height: 42px; display: grid; place-items: center; flex-shrink: 0; }
-  [data-variant="A"] .mark-a, [data-variant="C"] .mark-c, [data-variant="D"] .mark-d { display: grid; }
+  [data-variant="A"] .mark-a, [data-variant="C"] .mark-c, [data-variant="D"] .mark-d, [data-variant="E"] .mark-d { display: grid; }
   .mark-a, .mark-c, .mark-d { display: none; border-radius: 50%; border: 1px solid var(--hairline); }
   [data-variant="B"] .mark-wordmark { display: block; }
   .mark-wordmark { display: none; }
@@ -103,7 +105,7 @@
     line-height: 1;
   }
   .mark-wordmark .rule { width: 34px; height: 2px; background: var(--gold-grad); margin-top: 3px; }
-  [data-variant="D"] .logo-text-lockup .name { font-family: 'Poiret One', cursive; letter-spacing: .08em; }
+  [data-variant="D"] .logo-text-lockup .name, [data-variant="E"] .logo-text-lockup .name { font-family: 'Poiret One', cursive; letter-spacing: .08em; }
 
   /* ---- hero ---- */
   .hero-band { padding: 3.5rem 0; }
@@ -143,7 +145,8 @@
   .hero-typographic .hero-sub { margin-left: auto; margin-right: auto; }
   .hero-typographic .hero-ctas { justify-content: center; }
   [data-variant="A"] .hero-typographic, [data-variant="C"] .hero-typographic { display: none; }
-  [data-variant="A"] .hero-two-col, [data-variant="C"] .hero-two-col { display: grid; }
+  [data-variant="A"] .hero-two-col, [data-variant="C"] .hero-two-col, [data-variant="E"] .hero-two-col { display: grid; }
+  [data-variant="E"] .hero-badge { font-family: 'Poiret One', cursive; letter-spacing: .3em; }
 
   /* variant D: art deco — symmetric, stepped frame, sunburst medallion */
   .hero-artdeco { display: none; padding: 3rem 0; }
@@ -186,8 +189,8 @@
   [data-variant="A"] .fmark-a { display: flex; }
   [data-variant="B"] .fmark-b { display: block; width: 100%; border: none; border-radius: 0; justify-content: flex-start; }
   [data-variant="C"] .fmark-c { display: flex; }
-  [data-variant="D"] .fmark-d { display: flex; }
-  [data-variant="D"] .feature-title { font-family: 'Poiret One', cursive; letter-spacing: .12em; }
+  [data-variant="D"] .fmark-d, [data-variant="E"] .fmark-d { display: flex; }
+  [data-variant="D"] .feature-title, [data-variant="E"] .feature-title { font-family: 'Poiret One', cursive; letter-spacing: .12em; }
   [data-variant="B"] .feature-mark { border: none; width: auto; height: auto; margin-bottom: .4rem; }
   [data-variant="B"] .feature-title { font-size: 1.05rem; letter-spacing: .04em; font-family: 'Cormorant Garamond', serif; font-weight: 700; text-transform: none; color: var(--text); }
 
@@ -339,6 +342,39 @@
               </g>
               <path d="M120 320 Q200 300 300 320" stroke="#d4af37" stroke-width="1" opacity=".4" fill="none"/>
             </svg>
+            <!-- Variant E fill: deco sunburst medallion with corner brackets, filling A's frame -->
+            <svg id="hero-fill-e" width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" style="display:none;">
+              <rect width="400" height="400" fill="#050506"/>
+              <defs>
+                <path id="deco-corner" d="M24,64 L24,24 L64,24 M24,44 L42,44 L42,24" fill="none" stroke="#d4af37" stroke-width="1.4"/>
+              </defs>
+              <use href="#deco-corner"/>
+              <use href="#deco-corner" transform="rotate(90 200 200)"/>
+              <use href="#deco-corner" transform="rotate(180 200 200)"/>
+              <use href="#deco-corner" transform="rotate(270 200 200)"/>
+              <circle cx="200" cy="200" r="175" fill="none" stroke="#d4af37" stroke-width="1"/>
+              <circle cx="200" cy="200" r="155" fill="none" stroke="#d4af37" stroke-width="1" opacity=".5"/>
+              <g stroke-width="1.6">
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(0 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(22.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(45 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(67.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(90 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(112.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(135 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(157.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(180 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(202.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(225 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(247.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(270 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(292.5 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="60" stroke="#e9c76a" transform="rotate(315 200 200)"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="#2aa8a3" transform="rotate(337.5 200 200)"/>
+              </g>
+              <circle cx="200" cy="200" r="22" fill="none" stroke="#d4af37" stroke-width="1"/>
+              <circle cx="200" cy="200" r="7" fill="#e9c76a"/>
+            </svg>
           </div>
         </div>
       </div>
@@ -470,6 +506,7 @@
     B: 'Typographic-led',
     C: 'Illustration',
     D: 'Art Deco',
+    E: 'Art Deco + Layout A',
   };
   const keys = Object.keys(VARIANTS);
 
@@ -486,6 +523,7 @@
       variant + ' (' + VARIANTS[variant] + ')';
     document.getElementById('hero-fill-a').style.display = variant === 'A' ? 'block' : 'none';
     document.getElementById('hero-fill-c').style.display = variant === 'C' ? 'block' : 'none';
+    document.getElementById('hero-fill-e').style.display = variant === 'E' ? 'block' : 'none';
   }
 
   function setVariant(variant) {
