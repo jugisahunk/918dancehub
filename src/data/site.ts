@@ -6,8 +6,8 @@ export const site = {
   tagline: 'Dance · Events · Tulsa',
   legalName: '918 Dance Hub & Events LLC',
   domain: 'www.918dancehubandevents.com',
-  // Contact placeholders — confirm with Christina before launch (handoff-v1
-  // "Placeholder content").
-  email: 'hello@918dancehubandevents.com',
+  // Phone is still a handoff-v1 placeholder — confirm with Christina before
+  // launch. Email is real, from Christina.
+  email: '918dancehubandevents@gmail.com',
   phone: '(918) 555-0918',
 };
