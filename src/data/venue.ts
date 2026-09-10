@@ -22,4 +22,7 @@ export const venue = {
     'Bridal showers',
     'Workshops',
   ],
+  // Fixed amenities of the space itself — distinct from the rental package
+  // list, which Christina was explicit is not meant for the site.
+  amenities: ['Dance floor', 'Event seating', 'Kitchenette', 'Bathrooms'],
 };

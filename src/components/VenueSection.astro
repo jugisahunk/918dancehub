@@ -27,6 +27,7 @@ import { venue } from '../data/venue';
       <div class="eyebrow">Event Rentals</div>
       <h2>{venue.description}</h2>
       <p class="body">{venue.locationCopy} — the exact address goes live at Grand Opening.</p>
+      <p class="amenities">{venue.amenities.join(' · ')}</p>
       <div class="stat-grid">
         {
           venue.stats.map((stat) => (
@@ -83,6 +84,12 @@ import { venue } from '../data/venue';
   .body {
     margin: 1rem 0 1.5rem;
     line-height: 1.6;
+  }
+
+  .amenities {
+    font-size: 0.82rem;
+    color: var(--teal-light);
+    margin: -0.75rem 0 1.5rem;
   }
 
   .stat-grid {
