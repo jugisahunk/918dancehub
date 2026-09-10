@@ -58,6 +58,17 @@ const navLinks = [
       });
     });
   }
+
+  // Anchor jumps (nav links, bottom nav, in-page CTAs) land right under the
+  // sticky header without this — handoff-v1's README flagged it as a gap.
+  const header = document.querySelector('header');
+  function syncHeaderHeight() {
+    if (header) {
+      document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    }
+  }
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
 </script>
 
 <style>

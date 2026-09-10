@@ -27,6 +27,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height, 90px);
 }
 
 body {
