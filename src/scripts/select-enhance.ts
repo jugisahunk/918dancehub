@@ -113,6 +113,11 @@ function enhanceSelect(shell: HTMLElement) {
     if (!shell.contains(e.target as Node)) close();
   });
 
+  // Lets other scripts drive this field (e.g. a "Reserve a Spot" link
+  // preselecting Interest) by setting select.value and dispatching
+  // 'change' — the custom UI stays in sync without knowing who called it.
+  select.addEventListener('change', syncFromSelect);
+
   select.hidden = true;
   select.tabIndex = -1;
   shell.prepend(listbox);
