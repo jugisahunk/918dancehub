@@ -102,7 +102,7 @@ Visitor-submitted, not author-managed content — handled by Formspree (ADR-0001
 |---|---|---|---|
 | `name` | string | yes | |
 | `email` | string | yes | |
-| `interest` | enum | yes | `Event Rental` \| `Dance Class` \| `Teach With Us` \| `General Inquiry` |
+| `interest` | enum | yes | `Event Rental` \| `Book a Tour` \| `Dance Class` \| `Teach With Us` \| `General Inquiry` |
 | `date` | date | no | only meaningful for `Event Rental`/`Dance Class` |
 | `message` | string | yes | |
 
