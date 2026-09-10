@@ -134,3 +134,94 @@ a:hover {
   outline-offset: 3px;
   border-radius: 6px;
 }
+
+/* Standard dropdown design, site-wide (src/scripts/select-enhance.ts
+   progressively enhances any
+   `<div class="select-shell" data-select-shell><select>…` into this). A
+   native <select>'s open dropdown is OS chrome that page CSS can't reach —
+   this is the fallback shown before the script runs, or if it fails to. */
+.select-shell select {
+  color-scheme: dark;
+  background-color: var(--bg-deep);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  color: var(--text-2);
+  min-height: 44px;
+  width: 100%;
+  font: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.select-shell select option {
+  background-color: var(--bg-deep);
+  color: var(--text-2);
+}
+
+.select-shell {
+  position: relative;
+}
+
+.select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  background-color: var(--bg-deep);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  color: var(--text-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.select-trigger:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.select-chevron {
+  color: var(--teal-light);
+  line-height: 1;
+}
+
+.select-listbox {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background-color: var(--bg-deep);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+}
+
+.select-option {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.select-option:hover,
+.select-option:focus {
+  background: rgba(42, 168, 163, 0.18);
+  outline: none;
+}
+
+.select-option[aria-selected='true'] {
+  color: var(--gold-light);
+}
