@@ -40,8 +40,15 @@ import { venue } from '../data/venue';
           ))
         }
       </div>
-      <p class="pending-note">* Approximate — final figures pending.</p>
+      <p class="pending-note">* Figures still being finalized.</p>
+      <div class="event-types">
+        <div class="event-types-label">Perfect for</div>
+        <ul>
+          {venue.eventTypes.map((type) => <li>{type}</li>)}
+        </ul>
+      </div>
       <a href="#contact" class="cta-pill">Check Availability</a>
+      <p class="tour-note">Pricing and rental terms are shared after a tour — inquire below.</p>
     </div>
   </div>
 </section>
@@ -106,6 +113,41 @@ import { venue } from '../data/venue';
     font-size: 0.78rem;
     color: var(--text-5);
     margin: 0 0 1.5rem;
+  }
+
+  .event-types {
+    margin-bottom: 1.5rem;
+  }
+
+  .event-types-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+
+  .event-types ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .event-types li {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    border: 1px solid var(--hairline-neutral);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+  }
+
+  .tour-note {
+    font-size: 0.82rem;
+    color: var(--text-4);
+    margin: 0.75rem 0 0;
   }
 
   @media (min-width: 768px) {
