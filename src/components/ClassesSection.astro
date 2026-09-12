@@ -1,7 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
-const classes = (await getCollection('classes')).sort((a, b) => a.data.order - b.data.order);
+const classes = await Promise.all(
+  (await getCollection('classes'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (c) => ({ ...c, instructor: await getEntry(c.data.instructor) }))
+);
 ---
 
 <section class="classes-band" id="classes">
@@ -21,7 +25,9 @@ const classes = (await getCollection('classes')).sort((a, b) => a.data.order - b
           <div class="schedule-row">
             <div>
               <div class="class-name">{c.data.name}</div>
-              <div class="class-level">{c.data.level}</div>
+              <div class="class-level">
+                {c.data.level} &middot; {c.instructor.data.name}
+              </div>
             </div>
             <div class="class-time">{c.data.schedule}</div>
           </div>
