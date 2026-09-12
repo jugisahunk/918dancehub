@@ -4,6 +4,7 @@ import { site } from '../data/site';
 // Inquiry form schema: docs/content-model.md#inquiry. Posts to Formspree
 // (ADR-0001) — FORMSPREE_FORM_ID needs a real form id before launch.
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
+const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
 ---
 
 <section class="contact-band" id="contact">
@@ -19,7 +20,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
           <span class="label">Email</span>
           <span class="value">{site.email}</span>
         </a>
-        <a class="contact-row" href={`tel:${site.phone}`}>
+        <a class="contact-row" href={phoneHref}>
           <span class="label">Phone</span>
           <span class="value">{site.phone}</span>
         </a>
