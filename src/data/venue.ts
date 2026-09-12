@@ -1,13 +1,15 @@
 // Singleton: docs/content-model.md#venue. wayfinder #13 (Gather Event
-// Rentals / Venue content) answered: sqFt is real; guestCapacity/
-// minRentalHours/availability are still not provided. Per Christina,
-// pricing/what's-included/deposit terms are deliberately NOT shown on the
-// site — those come after a tour and contract, hence no fields for them here.
+// Rentals / Venue content) answered facility sqFt, but the "Sq ft floor"
+// stat needs the dance-floor size specifically, which Christina won't have
+// until 10/1/2026 — so it's TBD along with guestCapacity/minRentalHours/
+// availability. Per Christina, pricing/what's-included/deposit terms are
+// deliberately NOT shown on the site — those come after a tour and
+// contract, hence no fields for them here.
 export const venue = {
   locationCopy: 'Midtown Tulsa Adjacent',
   description: 'A premier destination for big moments.',
   stats: [
-    { value: '4,260', label: 'Sq ft floor', pending: false },
+    { value: 'TBD', label: 'Sq ft floor', pending: true },
     { value: 'TBD', label: 'Guest capacity', pending: true },
     { value: 'TBD', label: 'Min. rental', pending: true },
     { value: 'TBD', label: 'Availability', pending: true },
