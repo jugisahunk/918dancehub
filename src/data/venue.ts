@@ -24,6 +24,11 @@ export const venue = {
     'Bridal showers',
     'Workshops',
   ],
+  // Keeps eventTypes from reading as an exhaustive list — most inquiries
+  // aren't one of the eight named types, and we don't want anyone
+  // self-excluding because their event isn't listed.
+  eventTypesNote:
+    "Don't see your event? If you can picture it here, we can probably host it. Just ask.",
   // Fixed amenities of the space itself — distinct from the rental package
   // list, which Christina was explicit is not meant for the site.
   amenities: ['Dance floor', 'Event seating', 'Kitchenette', 'Bathrooms'],

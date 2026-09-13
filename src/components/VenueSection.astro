@@ -26,7 +26,7 @@ import { venue } from '../data/venue';
     <div>
       <div class="eyebrow">Event Rentals</div>
       <h2>{venue.description}</h2>
-      <p class="body">{venue.locationCopy} — the exact address goes live at Grand Opening.</p>
+      <p class="body">{venue.locationCopy}. The exact address goes live at Grand Opening.</p>
       <p class="amenities">{venue.amenities.join(' · ')}</p>
       <div class="stat-grid">
         {
@@ -34,7 +34,7 @@ import { venue } from '../data/venue';
             <div class="stat-tile">
               <div class="stat-value">
                 {stat.value}
-                {stat.pending && <span class="pending-mark" title="Placeholder — pending real figures (wayfinder #13)">*</span>}
+                {stat.pending && <span class="pending-mark" title="Placeholder, pending real figures (wayfinder #13)">*</span>}
               </div>
               <div class="stat-label">{stat.label}</div>
             </div>
@@ -43,13 +43,14 @@ import { venue } from '../data/venue';
       </div>
       <p class="pending-note">* Figures still being finalized.</p>
       <div class="event-types">
-        <div class="event-types-label">Perfect for</div>
+        <div class="event-types-label">A few of the events we host</div>
         <ul>
           {venue.eventTypes.map((type) => <li>{type}</li>)}
         </ul>
+        <p class="event-types-note">{venue.eventTypesNote}</p>
       </div>
       <a href="#contact" class="cta-pill" data-interest="Event Rental">Check Availability</a>
-      <p class="tour-note">Pricing and rental terms are shared after a tour — inquire below.</p>
+      <p class="tour-note">Pricing and rental terms are shared after a tour. Inquire below.</p>
     </div>
   </div>
 </section>
@@ -138,17 +139,24 @@ import { venue } from '../data/venue';
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.6rem;
   }
 
   .event-types li {
     font-size: 0.82rem;
     color: var(--text-2);
+    text-align: center;
     border: 1px solid var(--hairline-neutral);
     border-radius: 999px;
-    padding: 0.35rem 0.85rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .event-types-note {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    margin: 0.75rem 0 0;
   }
 
   .tour-note {
