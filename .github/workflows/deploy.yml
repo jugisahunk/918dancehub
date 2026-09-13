@@ -25,6 +25,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # Staging only (see docs/adr/0001-tech-stack.md). Layout.astro
+          # reads this to emit a noindex meta tag so staging never
+          # competes with production in search results (issue #21).
+          # Cloudflare Pages production builds do not set this.
+          PUBLIC_STAGING: 'true'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

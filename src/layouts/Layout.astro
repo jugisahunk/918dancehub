@@ -1,16 +1,47 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
+import { buildLocalBusinessJsonLd } from '../data/structured-data';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
+// Defaults here are a fallback only — every page should pass its own
+// title/description (see src/pages/index.astro). Drafted from existing copy
+// (src/content/business-lines, src/data/venue.ts) as technical-SEO-reasonable
+// defaults; non-blocking for Site Launch, refinable by Christina later
+// (wayfinder #17, #20).
 const {
-  title = `${site.shortName} & Events: Dance Classes & Event Rentals in Tulsa, OK`,
-  description = 'A dance studio and event venue under one roof in Tulsa, OK. Dance classes, event rentals, and social events. Opening Fall 2026.',
+  title = `${site.name} | Tulsa, OK Dance Studio & Event Venue`,
+  description = `West Coast Swing dance classes, private event rentals, and social dance nights at ${site.name}, Midtown Tulsa Adjacent.`,
 } = Astro.props;
+
+// GitHub Pages staging (ADR-0001) must never rank in search over the real
+// production site on Cloudflare Pages. The staging deploy workflow
+// (.github/workflows/deploy.yml) sets PUBLIC_STAGING=true; Cloudflare Pages
+// production leaves it unset, so this only fires on staging builds. A
+// noindex meta tag is used (over a disallow-all robots.txt) because it
+// reliably deindexes pages that get discovered via inbound links, where a
+// robots.txt disallow only blocks crawling and can still leave a bare URL
+// indexed with no snippet.
+const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
+
+// Cloudflare Web Analytics (issue #18) — cookie-less, no consent banner needed.
+// Cloudflare Pages injects CF_PAGES=1 into its own build environment; the
+// GitHub Pages staging workflow (.github/workflows/deploy.yml) never sets it,
+// so this is the environment signal that already distinguishes production
+// from staging without adding a separate flag.
+// PUBLIC_CF_BEACON_TOKEN needs a real beacon token from the Cloudflare
+// dashboard before this actually renders anything — see issue #18 for the
+// manual setup steps (enable Web Analytics, grab the token, generate the
+// shareable read-only link).
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN || '';
+const isProductionBuild = Boolean(process.env.CF_PAGES);
+const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
+
+const localBusinessJsonLd = buildLocalBusinessJsonLd();
 ---
 
 <!doctype html>
@@ -24,6 +55,7 @@ const {
       href={`${import.meta.env.BASE_URL}/apple-touch-icon.png`.replace('//', '/')}
     />
     <meta name="generator" content={Astro.generator} />
+    {isStaging && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,6 +64,16 @@ const {
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&display=swap"
       rel="stylesheet"
     />
+    {
+      cfBeaconEnabled && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${cfBeaconToken}"}`}
+        />
+      )
+    }
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
   </head>
   <body>
     <slot />
