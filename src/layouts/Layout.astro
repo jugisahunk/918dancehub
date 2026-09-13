@@ -7,9 +7,14 @@ interface Props {
   description?: string;
 }
 
+// Defaults here are a fallback only — every page should pass its own
+// title/description (see src/pages/index.astro). Drafted from existing copy
+// (src/content/business-lines, src/data/venue.ts) as technical-SEO-reasonable
+// defaults; non-blocking for Site Launch, refinable by Christina later
+// (wayfinder #17, #20).
 const {
-  title = `${site.shortName} & Events: Dance Classes & Event Rentals in Tulsa, OK`,
-  description = 'A dance studio and event venue under one roof in Tulsa, OK. Dance classes, event rentals, and social events. Opening Fall 2026.',
+  title = `${site.name} | Tulsa, OK Dance Studio & Event Venue`,
+  description = `West Coast Swing dance classes, private event rentals, and social dance nights at ${site.name}, Midtown Tulsa Adjacent.`,
 } = Astro.props;
 ---
 

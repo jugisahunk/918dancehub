@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
@@ -11,9 +12,15 @@ import TeachSection from '../components/TeachSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
 import BottomNav from '../components/BottomNav.astro';
+
+// Home page's own title/description — see the Layout default comment for
+// where this copy is drafted from. Kept explicit here (rather than relying
+// on the Layout default) so additional pages have a clear pattern to follow.
+const title = `${site.name} | Tulsa, OK Dance Studio & Event Venue`;
+const description = `West Coast Swing dance classes, private event rentals, and social dance nights at ${site.name}, Midtown Tulsa Adjacent.`;
 ---
 
-<Layout>
+<Layout title={title} description={description}>
   <Header />
   <main>
     <Hero />
