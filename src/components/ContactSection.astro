@@ -8,60 +8,63 @@ const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
 ---
 
 <section class="contact-band" id="contact">
-  <div class="container contact-two-col">
-    <div>
-      <h2>Get in Touch</h2>
-      <p class="body">
-        Classes, event rentals, teaching, or just a question. Tell us what's on your mind and
-        we'll get back to you. No booking system yet, just a real reply from us.
-      </p>
-      <div class="contact-rows">
-        <a class="contact-row" href={`mailto:${site.email}`}>
-          <span class="label">Email</span>
-          <span class="value">{site.email}</span>
-        </a>
-        <a class="contact-row" href={phoneHref}>
-          <span class="label">Phone</span>
-          <span class="value">{site.phone}</span>
-        </a>
-        <div class="contact-row static">
-          <span class="label">Studio</span>
-          <span class="value">Midtown Tulsa Adjacent</span>
-        </div>
+  <div class="container">
+    <div class="contact-two-col">
+      <div>
+        <h2>Get in Touch</h2>
+        <p class="body">
+          Classes, event rentals, teaching, or just a question. Tell us what's on your mind and
+          we'll get back to you. No booking system yet, just a real reply from us.
+        </p>
       </div>
+
+      <form class="inquiry-form" action={`https://formspree.io/f/${formspreeId}`} method="POST">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <label>
+          <span>Interest</span>
+          <div class="select-shell" data-select-shell>
+            <select name="interest" required>
+              <option value="Event Rental">Event Rental</option>
+              <option value="Book a Tour">Book a Tour</option>
+              <option value="Dance Class">Dance Class</option>
+              <option value="Teach With Us">Teach With Us</option>
+              <option value="General Inquiry" selected>General Inquiry</option>
+            </select>
+          </div>
+        </label>
+        <label>
+          <span>Date <em>(optional)</em></span>
+          <input type="date" name="date" />
+        </label>
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+        <button type="submit" class="cta-pill">Send Inquiry</button>
+      </form>
     </div>
 
-    <form class="inquiry-form" action={`https://formspree.io/f/${formspreeId}`} method="POST">
-      <label>
-        <span>Name</span>
-        <input type="text" name="name" required autocomplete="name" />
-      </label>
-      <label>
-        <span>Email</span>
-        <input type="email" name="email" required autocomplete="email" />
-      </label>
-      <label>
-        <span>Interest</span>
-        <div class="select-shell" data-select-shell>
-          <select name="interest" required>
-            <option value="Event Rental">Event Rental</option>
-            <option value="Book a Tour">Book a Tour</option>
-            <option value="Dance Class">Dance Class</option>
-            <option value="Teach With Us">Teach With Us</option>
-            <option value="General Inquiry" selected>General Inquiry</option>
-          </select>
-        </div>
-      </label>
-      <label>
-        <span>Date <em>(optional)</em></span>
-        <input type="date" name="date" />
-      </label>
-      <label>
-        <span>Message</span>
-        <textarea name="message" rows="4" required></textarea>
-      </label>
-      <button type="submit" class="cta-pill">Send Inquiry</button>
-    </form>
+    <div class="contact-rows">
+      <a class="contact-row" href={`mailto:${site.email}`}>
+        <span class="label">Email</span>
+        <span class="value">{site.email}</span>
+      </a>
+      <a class="contact-row" href={phoneHref}>
+        <span class="label">Phone</span>
+        <span class="value">{site.phone}</span>
+      </a>
+      <div class="contact-row static">
+        <span class="label">Studio</span>
+        <span class="value">Midtown Tulsa Adjacent</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -78,27 +81,29 @@ const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
   .contact-two-col {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1rem 2.5rem;
   }
 
   .body {
-    margin: 1rem 0 1.5rem;
+    margin: 1rem 0 0;
     line-height: 1.6;
   }
 
   .contact-rows {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .contact-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 48px;
+    flex-direction: column;
+    gap: 0.3rem;
     text-decoration: none;
     color: var(--text-3);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
     transition: color 0.2s ease;
   }
 
@@ -157,6 +162,10 @@ const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
   @media (min-width: 768px) {
     .contact-two-col {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-rows {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style>
