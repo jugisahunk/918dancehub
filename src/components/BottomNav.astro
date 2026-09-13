@@ -1,9 +1,12 @@
 ---
+// Kept in sync with Header.astro's mobile menu (navLinks + Get in Touch)
+// so the bottom nav and hamburger menu offer the same destinations.
 const items = [
   { href: '#classes', label: 'Classes', mark: 'I' },
   { href: '#venue', label: 'Venue', mark: 'II' },
   { href: '#events', label: 'Events', mark: 'III' },
-  { href: '#contact', label: 'Contact', mark: 'IV' },
+  { href: '#teach', label: 'Teach', mark: 'IV' },
+  { href: '#contact', label: 'Get in Touch', mark: 'V' },
 ];
 ---
 
@@ -26,7 +29,7 @@ const items = [
     right: 0;
     z-index: 50;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     background: rgba(10, 10, 12, 0.96);
     backdrop-filter: blur(10px);
     border-top: 1px solid var(--hairline);

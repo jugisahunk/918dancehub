@@ -32,13 +32,15 @@ const navLinks = [
       aria-controls="mobile-menu"
       aria-label="Toggle menu"
     >
-      <span></span>
-      <span class="short"></span>
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
     </button>
   </div>
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    <a href="#contact" class="cta-pill mobile-cta">Get in Touch</a>
   </div>
 </header>
 
@@ -139,20 +141,31 @@ const navLinks = [
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     cursor: pointer;
   }
 
-  .hamburger span {
+  /* Art deco ziggurat: bars step wider toward the bottom, like a stepped
+     pyramid silhouette, instead of three equal-width hamburger bars. */
+  .bar {
     display: block;
-    width: 20px;
     height: 2px;
+    border-radius: 1px;
+  }
+
+  .bar-1 {
+    width: 11px;
     background: var(--gold-light);
   }
 
-  .hamburger span.short {
-    width: 14px;
-    background: var(--teal);
+  .bar-2 {
+    width: 17px;
+    background: var(--teal-light);
+  }
+
+  .bar-3 {
+    width: 23px;
+    background: var(--gold-light);
   }
 
   .mobile-menu {
@@ -173,6 +186,13 @@ const navLinks = [
     color: var(--text-3);
     text-decoration: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .mobile-menu .mobile-cta {
+    justify-content: center;
+    margin: 0.9rem 1rem;
+    border-bottom: none;
+    color: #1a1204;
   }
 
   @media (min-width: 768px) {
