@@ -23,3 +23,7 @@ Several fields are placeholders pending open content-gathering tickets:
 ## Inquiry form
 
 Posts to Formspree (ADR-0001). Set `PUBLIC_FORMSPREE_FORM_ID` in the environment (see `.env.example`) once a real form id exists.
+
+## Analytics
+
+Cloudflare Web Analytics (free, cookie-less, no consent banner — issue #18). The beacon only renders on production builds — gated on Cloudflare Pages' own `CF_PAGES` build env var, so the GitHub Pages staging site is never tracked. Set `PUBLIC_CF_BEACON_TOKEN` (see `.env.example`) as a Cloudflare Pages build environment variable once Web Analytics is enabled for the site in the Cloudflare dashboard.

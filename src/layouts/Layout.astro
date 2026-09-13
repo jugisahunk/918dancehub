@@ -26,6 +26,19 @@ const {
 // robots.txt disallow only blocks crawling and can still leave a bare URL
 // indexed with no snippet.
 const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
+
+// Cloudflare Web Analytics (issue #18) — cookie-less, no consent banner needed.
+// Cloudflare Pages injects CF_PAGES=1 into its own build environment; the
+// GitHub Pages staging workflow (.github/workflows/deploy.yml) never sets it,
+// so this is the environment signal that already distinguishes production
+// from staging without adding a separate flag.
+// PUBLIC_CF_BEACON_TOKEN needs a real beacon token from the Cloudflare
+// dashboard before this actually renders anything — see issue #18 for the
+// manual setup steps (enable Web Analytics, grab the token, generate the
+// shareable read-only link).
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN || '';
+const isProductionBuild = Boolean(process.env.CF_PAGES);
+const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
 ---
 
 <!doctype html>
@@ -48,6 +61,15 @@ const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&display=swap"
       rel="stylesheet"
     />
+    {
+      cfBeaconEnabled && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${cfBeaconToken}"}`}
+        />
+      )
+    }
   </head>
   <body>
     <slot />
