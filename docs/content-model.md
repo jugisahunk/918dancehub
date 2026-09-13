@@ -19,7 +19,7 @@ Source: [Dance Classes questionnaire](../to-questionnaire-dance-classes-content.
 
 ### Class
 
-A Dance Class taught at the Venue.
+A Dance Class or Practice Dance taught/hosted at the Venue. Despite the collection name, an entry can be a lesson or the practice dance that follows one — `kind` distinguishes them, since both share every other field (day, time, instructor) and the site lists them in the same per-day schedule block.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
@@ -27,12 +27,16 @@ A Dance Class taught at the Venue.
 | `name` | string | yes | |
 | `instructor` | reference → Instructor | yes | |
 | `level` | string | yes | e.g. "Beginner", "All levels" |
-| `schedule` | string | yes | e.g. "Mondays, 7:00-8:00pm" — free text, not a structured day/time pair; nothing in scope needs to query/sort by time |
+| `day` | string | yes | e.g. "Monday" — groups entries into one schedule block per day on the site |
+| `schedule` | string | yes | time range only, e.g. "7:00-8:00pm" (day lives in `day`, not here) |
 | `description` | string | yes | marketing blurb |
 | `whatToWear` | string | no | |
 | `capacity` | number | no | |
 | `prerequisites` | string | no | |
-| `pricing` | string | yes | free text — covers drop-in rate, series price, etc. without forcing a single pricing shape |
+| `pricing` | string | no | free text describing the whole day's pricing (both lessons plus the practice dance) — shown once per day on the site, so set it on exactly one entry for that day; leave the rest unset |
+| `kind` | `"lesson"` \| `"practice"` | no, defaults to `"lesson"` | `"practice"` marks the open practice dance following that day's Open Level class — no instruction, not a Dance Class in the marketing sense |
+
+Not to be confused with SocialEvent below: a practice dance is a low-key, no-cover extension of that day's classes for people who just took them; a Social Event (e.g. the monthly WCS Social) is a standalone community dance night, unrelated to any specific class.
 
 Source: [Dance Classes questionnaire](../to-questionnaire-dance-classes-content.md), sent to Christina.
 

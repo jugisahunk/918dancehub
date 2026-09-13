@@ -21,12 +21,16 @@ const classes = defineCollection({
     name: z.string(),
     instructor: reference('instructors'),
     level: z.string(),
+    day: z.string(),
     schedule: z.string(),
     description: z.string(),
     whatToWear: z.string().optional(),
     capacity: z.number().optional(),
     prerequisites: z.string().optional(),
-    pricing: z.string(),
+    // Optional because it's shown once per day, not per row — set it on any
+    // one entry for that day (by convention, the first lesson of the day).
+    pricing: z.string().optional(),
+    kind: z.enum(['lesson', 'practice']).default('lesson'),
     order: z.number(),
   }),
 });

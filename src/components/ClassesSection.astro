@@ -6,6 +6,23 @@ const classes = await Promise.all(
     .sort((a, b) => a.data.order - b.data.order)
     .map(async (c) => ({ ...c, instructor: await getEntry(c.data.instructor) }))
 );
+
+// Grouped by day so pricing (which describes the whole night — both
+// lessons plus the practice dance) is shown once per day, not per row.
+const dayOrder: string[] = [];
+const byDay = new Map<string, typeof classes>();
+for (const c of classes) {
+  if (!byDay.has(c.data.day)) {
+    byDay.set(c.data.day, []);
+    dayOrder.push(c.data.day);
+  }
+  byDay.get(c.data.day)!.push(c);
+}
+const dayGroups = dayOrder.map((day) => {
+  const items = byDay.get(day)!;
+  const pricing = items.map((i) => i.data.pricing).find(Boolean);
+  return { day, items, pricing };
+});
 ---
 
 <section class="classes-band" id="classes">
@@ -21,15 +38,21 @@ const classes = await Promise.all(
     </div>
     <div class="schedule-list">
       {
-        classes.map((c) => (
-          <div class="schedule-row">
-            <div>
-              <div class="class-name">{c.data.name}</div>
-              <div class="class-level">
-                {c.data.level} &middot; {c.instructor.data.name}
+        dayGroups.map(({ day, items, pricing }) => (
+          <div class="day-group">
+            <div class="day-label">{day}</div>
+            {items.map((c) => (
+              <div class="schedule-row">
+                <div class="schedule-row-top">
+                  <div class="class-name">{c.data.name}</div>
+                  <div class="class-time">{c.data.schedule}</div>
+                </div>
+                <div class="class-level">
+                  {c.data.level} &middot; {c.instructor.data.name}
+                </div>
               </div>
-            </div>
-            <div class="class-time">{c.data.schedule}</div>
+            ))}
+            {pricing && <div class="day-pricing">{pricing}</div>}
           </div>
         ))
       }
@@ -59,13 +82,36 @@ const classes = await Promise.all(
   .schedule-list {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .day-group {
+    border-left: 3px solid var(--teal);
+    padding-left: 0.9rem;
+  }
+
+  .day-group:nth-of-type(even) {
+    border-left-color: var(--gold);
+  }
+
+  .day-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--teal-light);
+    margin-bottom: 0.2rem;
+  }
+
+  .day-group:nth-of-type(even) .day-label {
+    color: var(--gold-light);
   }
 
   .schedule-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.9rem 0.75rem;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.6rem 0.75rem;
     border-radius: 12px;
     transition: background 0.2s ease;
   }
@@ -76,6 +122,23 @@ const classes = await Promise.all(
 
   .schedule-row + .schedule-row {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .day-pricing {
+    margin: 0.5rem 0 0 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: var(--gold-grad);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .schedule-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
 
   .class-name {
