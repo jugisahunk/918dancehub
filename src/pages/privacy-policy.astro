@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BottomNav from '../components/BottomNav.astro';
+import { site } from '../data/site';
+---
+
+<Layout
+  title={`Privacy Policy — ${site.shortName}`}
+  description={`How ${site.legalName} handles information submitted through this website.`}
+>
+  <Header />
+  <main>
+    <section class="policy-band">
+      <div class="container policy">
+        <p class="eyebrow">Privacy Policy</p>
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated September 2026</p>
+
+        <p>
+          This is a short, plain-language summary of the only two things this website does with
+          information: the Inquiry form, and basic traffic measurement. There's no advertising,
+          no data resale, and no automated decision-making of any kind.
+        </p>
+
+        <h2>The Inquiry form</h2>
+        <p>
+          When you submit the Inquiry form (name, email, interest, date, and message), it's sent
+          through <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noreferrer">Formspree</a>,
+          a form-delivery service, directly to {site.legalName}'s inbox. A real person reads it
+          and follows up manually — nothing is booked, scheduled, or stored automatically, and
+          the information isn't kept anywhere beyond that inbox or used for anything other than
+          replying to you.
+        </p>
+
+        <h2>Site traffic</h2>
+        <p>
+          We measure overall site traffic with Cloudflare Web Analytics, which is cookie-less by
+          design — it doesn't use cookies or any other tracking method to identify individual
+          visitors, and it doesn't build a profile of you or follow you across other sites. It
+          just gives us aggregate counts like page views. Because nothing is tracked, no cookie
+          consent banner is needed.
+        </p>
+
+        <h2>Questions</h2>
+        <p>
+          If you have questions about any of this, reach out at
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <BottomNav />
+</Layout>
+
+<style>
+  .policy-band {
+    padding: 3rem 0 4rem;
+  }
+
+  .policy {
+    max-width: 68ch;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    margin-top: 0.5rem;
+  }
+
+  .updated {
+    font-size: 0.8rem;
+    color: var(--text-5);
+    margin: 0.75rem 0 2rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    line-height: 1.65;
+    margin: 0 0 1rem;
+  }
+</style>

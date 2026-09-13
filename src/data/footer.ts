@@ -20,5 +20,6 @@ export const footer = {
     { label: 'Studio Policies', href: null as string | null },
     { label: 'Private Lessons', href: null as string | null },
     { label: 'Gift Cards', href: null as string | null },
+    { label: 'Privacy Policy', href: 'privacy-policy' as string | null },
   ],
 };
