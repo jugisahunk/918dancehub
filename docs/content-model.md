@@ -75,7 +75,7 @@ Not collections — each of these has exactly one instance, matching CONTEXT.md'
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `locationCopy` | string | yes | fixed as **"Midtown Tulsa Adjacent"** until Grand Opening (see CONTEXT.md); becomes the real address after |
+| `locationCopy` | string | yes | the real Venue street address — see CONTEXT.md's retired `Midtown Tulsa Adjacent` entry (ADR-0002) |
 | `sqFt` | number | pending | placeholder in handoff-v1 — real value needed. See newly-opened content-gathering ticket. |
 | `guestCapacity` | number | pending | same |
 | `minRentalHours` | number | pending | same |

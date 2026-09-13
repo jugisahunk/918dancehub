@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
+import { venue } from '../data/venue';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
@@ -17,7 +18,7 @@ import BottomNav from '../components/BottomNav.astro';
 // where this copy is drafted from. Kept explicit here (rather than relying
 // on the Layout default) so additional pages have a clear pattern to follow.
 const title = `${site.name} | Tulsa, OK Dance Studio & Event Venue`;
-const description = `West Coast Swing dance classes, private event rentals, and social dance nights at ${site.name}, Midtown Tulsa Adjacent.`;
+const description = `West Coast Swing dance classes, private event rentals, and social dance nights at ${site.name}, ${venue.locationCopy}.`;
 ---
 
 <Layout title={title} description={description}>

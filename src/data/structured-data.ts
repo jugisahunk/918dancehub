@@ -1,11 +1,8 @@
 // LocalBusiness JSON-LD for SEO (wayfinder #17 / issue #22).
 //
-// CRITICAL: per CONTEXT.md's "Midtown Tulsa Adjacent" and "Venue" entries,
-// the exact street address is deliberately withheld until Grand Opening
-// (2026-10-10) to avoid premature foot traffic while the Venue is being
-// prepared. Do NOT add a `streetAddress` field to the `address` object
-// below before then — issue #26 ("Flip Grand Opening reveal live") owns
-// that change and will add it at the right time.
+// Full street address included (ADR-0002, issue #28) — revealed early since
+// it was already public on the Google Business Profile listing and
+// Facebook, ahead of the original Grand Opening (2026-10-10) reveal date.
 import { site } from './site';
 import { mission } from './mission';
 
@@ -47,14 +44,12 @@ export function buildLocalBusinessJsonLd() {
     url: `https://${site.domain}/`,
     telephone: site.phone,
     email: site.email,
-    // Partial address only: city/region per CONTEXT.md's "Midtown Tulsa
-    // Adjacent" entry. `streetAddress` is intentionally omitted — see the
-    // file header. A PostalAddress with no streetAddress is valid
-    // schema.org.
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '2732 S Memorial Dr',
       addressLocality: 'Tulsa',
       addressRegion: 'OK',
+      postalCode: '74129',
       addressCountry: 'US',
     },
     areaServed: {

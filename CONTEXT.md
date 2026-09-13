@@ -36,9 +36,9 @@ A person teaching Dance Classes at the Venue. 2–3 Instructors are confirmed an
 **Site Launch**:
 EOD 9/26/2026 — the date the website goes live, two weeks ahead of Grand Opening, while the Venue is still not presentable.
 
-**Midtown Tulsa Adjacent**:
-The deliberate location description used across the site in place of a street address, until Grand Opening. Gives visitors a general sense of area without revealing the exact Venue address, to avoid premature foot traffic while the Venue is being prepared.
-_Avoid_: Address, exact location, street address
+**Midtown Tulsa Adjacent** (retired 2026-09-13, see ADR-0002):
+Formerly the deliberate location description used across the site in place of a street address, until Grand Opening — gave visitors a general sense of area without revealing the exact Venue address, to avoid premature foot traffic while the Venue was being prepared. Retired once the address was already public on the Google Business Profile listing and Facebook, which made keeping the site vague inconsistent rather than protective. The site now shows the real Venue address.
+_Avoid_: using this phrase in new copy — replaced by the real address everywhere.
 
 **Inquiry**:
 The site's conversion mechanic at Site Launch — a visitor-submitted form (name, email, interest, date, message) that lands directly in Christina's inbox for manual follow-up.

@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { venue } from '../data/venue';
 
 // Inquiry form schema: docs/content-model.md#inquiry. Posts to Formspree
 // (ADR-0001) — FORMSPREE_FORM_ID needs a real form id before launch.
@@ -72,7 +73,7 @@ const thankYouUrl = new URL(thankYouPath, Astro.site).href;
       </a>
       <div class="contact-row static">
         <span class="label">Studio</span>
-        <span class="value">Midtown Tulsa Adjacent</span>
+        <span class="value">{venue.locationCopy}</span>
       </div>
     </div>
   </div>
