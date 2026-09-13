@@ -5,6 +5,15 @@ import { site } from '../data/site';
 // (ADR-0001) — FORMSPREE_FORM_ID needs a real form id before launch.
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
 const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
+
+// Formspree's `_next` redirect (issue #19) sends a successful Inquiry to its
+// own page rather than back to this one, so the submission shows up as a
+// distinct pageview in Cloudflare Web Analytics. Formspree requires an
+// absolute URL here, built from `site`/`base` the same way robots.txt.ts
+// does so it stays correct through the future production-domain swap
+// (issue #11).
+const thankYouPath = `${import.meta.env.BASE_URL}/thank-you`.replace('//', '/');
+const thankYouUrl = new URL(thankYouPath, Astro.site).href;
 ---
 
 <section class="contact-band" id="contact">
@@ -19,6 +28,7 @@ const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
       </div>
 
       <form class="inquiry-form" action={`https://formspree.io/f/${formspreeId}`} method="POST">
+        <input type="hidden" name="_next" value={thankYouUrl} />
         <label>
           <span>Name</span>
           <input type="text" name="name" required autocomplete="name" />

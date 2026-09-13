@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BottomNav from '../components/BottomNav.astro';
+import { site } from '../data/site';
+
+// Formspree's `_next` redirect target for the Inquiry form (see
+// ContactSection.astro) — its own page/route so a submitted Inquiry shows up
+// as a distinct pageview in Cloudflare Web Analytics (issue #19), not just a
+// generic homepage view.
+---
+
+<Layout
+  title={`Thank You — ${site.shortName}`}
+  description={`Your Inquiry to ${site.legalName} was sent.`}
+>
+  <Header />
+  <main>
+    <section class="thanks-band">
+      <div class="container thanks">
+        <p class="eyebrow">Inquiry Sent</p>
+        <h1>Thank you!</h1>
+        <p>
+          We got your message and a real person will get back to you soon. If it's urgent, call
+          or email us directly.
+        </p>
+        <a class="cta-pill" href={`${import.meta.env.BASE_URL}/`.replace('//', '/')}>
+          Back to the homepage
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <BottomNav />
+</Layout>
+
+<style>
+  .thanks-band {
+    padding: 4rem 0 5rem;
+  }
+
+  .thanks {
+    max-width: 60ch;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    margin: 0;
+  }
+
+  p {
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .cta-pill {
+    margin-top: 0.5rem;
+    text-decoration: none;
+  }
+</style>
