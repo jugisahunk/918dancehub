@@ -4,6 +4,11 @@ status: accepted
 
 # Tech stack: Astro, GitHub Pages (staging) + Cloudflare Pages (production), Formspree
 
+> **Update (ADR-0003)**: "Cloudflare Pages" now concretely means a Cloudflare
+> Worker with static assets, not the classic Pages Git-integration flow —
+> that flow was retired for new projects before issue #15 shipped. Same
+> reasoning, same free tier, different mechanism; see ADR-0003.
+
 The site needs a framework that leaves an obvious path to a future CMS, staging on GitHub Pages (developer requirement) plus genuinely free production hosting, and a forms backend for the shared Inquiry form — all deliverable in ~3 weeks for a small brochure site. We chose **Astro** (its typed Content Collections API is a first-party, documented content layer matching the design's repeated data-driven sections, and the closest thing to a built-in future-CMS boundary), staged on **GitHub Pages** and served in production from **Cloudflare Pages** (GitHub Pages' own limits page warns against sites "primarily directed at facilitating commercial transactions" — a real gray area for a named LLC's site; Cloudflare Pages carries no such restriction, and its Free plan — 100 custom domains, 500 builds/month, unmetered static bandwidth — covers this site at $0/mo), with **Formspree** handling the Inquiry form (host-agnostic, zero backend code; free tier is 50 submissions/month, next tier is $10/mo for 200).
 
 ## Considered Options

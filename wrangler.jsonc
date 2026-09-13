@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Static-assets-only Worker: no server-side script (`main`), just the
+  // Astro build output. Cloudflare's replacement for the classic Pages
+  // Git-integration flow, which is no longer offered to new projects
+  // (ADR-0003) — "assets.directory" is where "build output directory"
+  // now lives, since there's no dashboard field for it anymore.
+  "name": "918dancehub",
+  "compatibility_date": "2026-09-13",
+  "assets": {
+    "directory": "./dist"
+  }
+}
