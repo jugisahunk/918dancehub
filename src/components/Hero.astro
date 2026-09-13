@@ -1,4 +1,6 @@
 ---
+import { mission } from '../data/mission';
+
 // Hero fill: illustration direction line-art dancing couple (prototype
 // variant C, wayfinder #9) — stands in for real venue/dancer photography,
 // which isn't available until after Grand Opening.
@@ -9,10 +11,7 @@
     <div>
       <div class="hero-badge">Opening Fall 2026 &middot; Tulsa</div>
       <h1 class="hero-h1">Where moves<br /><span class="script accent">create memories</span></h1>
-      <p class="hero-sub">
-        A dance studio and event venue under one roof. Classes for every level and every style, plus
-        a space built for birthdays, weddings, showers, parties, and corporate events.
-      </p>
+      <p class="hero-sub">{mission.heroLine}</p>
       <div class="hero-ctas">
         <a href="#classes" class="cta-pill">See Class Schedule</a>
         <a href="#venue" class="cta-outline">Rent the Venue</a>

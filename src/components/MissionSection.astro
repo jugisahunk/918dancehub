@@ -1,0 +1,38 @@
+---
+import { mission } from '../data/mission';
+---
+
+<section class="mission-band">
+  <div class="container mission-col">
+    <div class="eyebrow">{mission.heading}</div>
+    {mission.body.map((paragraph) => <p class="mission-paragraph">{paragraph}</p>)}
+  </div>
+</section>
+
+<style>
+  .mission-band {
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: radial-gradient(120% 80% at 50% 0%, rgba(212, 175, 55, 0.07), transparent 60%);
+  }
+
+  .mission-col {
+    max-width: 640px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  .mission-paragraph {
+    color: var(--text-2);
+    line-height: 1.85;
+    margin: 0 0 1.25rem;
+  }
+
+  .mission-paragraph:last-child {
+    margin-bottom: 0;
+  }
+</style>

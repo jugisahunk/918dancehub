@@ -84,6 +84,18 @@ Not collections — each of these has exactly one instance, matching CONTEXT.md'
 
 **Gap found while defining this model:** unlike Dance Classes and Social Events, no ticket existed to gather real Venue/Event-Rentals numbers — despite Event Rentals being the primary Business Line. Opened [Gather Event Rentals / Venue content](https://github.com/jugisahunk/918dancehub/issues/13) to close that gap; values above stay `pending` until it resolves.
 
+### Mission
+
+Resolves [wayfinder ticket #16](https://github.com/jugisahunk/918dancehub/issues/16). The business's evergreen statement of purpose (see CONTEXT.md), distinct from any one Business Line's marketing copy.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `heading` | string | yes | defaults to "Our Mission" |
+| `heroLine` | string | yes | short line synthesized from `body`, used as the Hero section's subhead |
+| `body` | string[] | yes | the mission statement's paragraphs, lightly edited from Christina's original for web readability |
+
+Source: email from Christina, forwarded 2026-09-12.
+
 ### Footer / Social Links
 
 | Field | Type | Required | Notes |

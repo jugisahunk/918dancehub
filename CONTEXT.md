@@ -46,3 +46,10 @@ _Avoid_: Booking, reservation — at Site Launch, nothing is confirmed or schedu
 
 **Booking**:
 A transactional, scheduled reservation of a Class or the Venue, handled through a scheduling/payment system (e.g. Square, Acuity). Not available at Site Launch — a future capability, not yet built or chosen.
+
+**Practice Dance**:
+A low-key, no-instruction open dancing period that immediately follows a day's Open Level Dance Class, hosted by that day's Instructor. Distinct from Social Events: a Practice Dance is a same-night extension of that day's classes for people who just took them, not a standalone community dance night open to the public at large.
+_Avoid_: Social, social dance — reserved for Social Events, a different Business Line.
+
+**Mission**:
+918 Dance Hub & Events' evergreen statement of purpose and values (why the business exists), written by Christina. Distinct from a Business Line (a specific commercial offering) and from any single section's marketing copy (which sells one Business Line) — the Mission speaks for the whole business at once.
