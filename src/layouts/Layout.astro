@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
+import { buildLocalBusinessJsonLd } from '../data/structured-data';
 
 interface Props {
   title?: string;
@@ -39,6 +40,8 @@ const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
 const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN || '';
 const isProductionBuild = Boolean(process.env.CF_PAGES);
 const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
+
+const localBusinessJsonLd = buildLocalBusinessJsonLd();
 ---
 
 <!doctype html>
@@ -70,6 +73,7 @@ const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
         />
       )
     }
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
   </head>
   <body>
     <slot />
