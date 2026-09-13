@@ -6,14 +6,14 @@ const items = [
   { href: '#venue', label: 'Venue', mark: 'II' },
   { href: '#events', label: 'Events', mark: 'III' },
   { href: '#teach', label: 'Teach', mark: 'IV' },
-  { href: '#contact', label: 'Get in Touch', mark: 'V' },
+  { href: '#contact', label: 'Get in Touch', mark: 'V', interest: 'General Inquiry' },
 ];
 ---
 
 <nav class="bottom-nav" aria-label="Quick jump">
   {
     items.map((item) => (
-      <a href={item.href}>
+      <a href={item.href} data-interest={item.interest}>
         <span class="mark">{item.mark}</span>
         <span class="label">{item.label}</span>
       </a>

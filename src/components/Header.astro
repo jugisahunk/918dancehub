@@ -22,7 +22,7 @@ const navLinks = [
 
     <nav class="nav-links" aria-label="Primary">
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-      <a href="#contact" class="cta-pill">Get in Touch</a>
+      <a href="#contact" class="cta-pill" data-interest="General Inquiry">Get in Touch</a>
     </nav>
 
     <button
@@ -40,7 +40,7 @@ const navLinks = [
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-    <a href="#contact" class="cta-pill mobile-cta">Get in Touch</a>
+    <a href="#contact" class="cta-pill mobile-cta" data-interest="General Inquiry">Get in Touch</a>
   </div>
 </header>
 
