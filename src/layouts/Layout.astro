@@ -11,6 +11,16 @@ const {
   title = `${site.shortName} & Events: Dance Classes & Event Rentals in Tulsa, OK`,
   description = 'A dance studio and event venue under one roof in Tulsa, OK. Dance classes, event rentals, and social events. Opening Fall 2026.',
 } = Astro.props;
+
+// GitHub Pages staging (ADR-0001) must never rank in search over the real
+// production site on Cloudflare Pages. The staging deploy workflow
+// (.github/workflows/deploy.yml) sets PUBLIC_STAGING=true; Cloudflare Pages
+// production leaves it unset, so this only fires on staging builds. A
+// noindex meta tag is used (over a disallow-all robots.txt) because it
+// reliably deindexes pages that get discovered via inbound links, where a
+// robots.txt disallow only blocks crawling and can still leave a bare URL
+// indexed with no snippet.
+const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
 ---
 
 <!doctype html>
@@ -24,6 +34,7 @@ const {
       href={`${import.meta.env.BASE_URL}/apple-touch-icon.png`.replace('//', '/')}
     />
     <meta name="generator" content={Astro.generator} />
+    {isStaging && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
