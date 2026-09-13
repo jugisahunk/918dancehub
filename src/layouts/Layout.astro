@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
+import { buildLocalBusinessJsonLd } from '../data/structured-data';
 
 interface Props {
   title?: string;
@@ -11,6 +12,8 @@ const {
   title = `${site.shortName} & Events: Dance Classes & Event Rentals in Tulsa, OK`,
   description = 'A dance studio and event venue under one roof in Tulsa, OK. Dance classes, event rentals, and social events. Opening Fall 2026.',
 } = Astro.props;
+
+const localBusinessJsonLd = buildLocalBusinessJsonLd();
 ---
 
 <!doctype html>
@@ -32,6 +35,7 @@ const {
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
   </head>
   <body>
     <slot />
