@@ -31,6 +31,10 @@ jobs:
           # competes with production in search results (issue #21).
           # Cloudflare Pages production builds do not set this.
           PUBLIC_STAGING: 'true'
+          # Formspree form id for the Inquiry form (ContactSection.astro).
+          # Not a secret — it's embedded in the built page's form action —
+          # so it's a repo variable, set via `gh variable set`.
+          PUBLIC_FORMSPREE_FORM_ID: ${{ vars.PUBLIC_FORMSPREE_FORM_ID }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
