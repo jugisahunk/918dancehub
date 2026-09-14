@@ -30,18 +30,16 @@ const {
 const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
 
 // Cloudflare Web Analytics (issue #18) — cookie-less, no consent banner needed.
-// Cloudflare's Workers Builds (ADR-0003 — classic Pages' build system no
-// longer exists for new projects) injects WORKERS_CI=1 into its own build
-// environment; the GitHub Pages staging workflow
+// The "Promote to Production" workflow (ADR-0004) sets PUBLIC_PRODUCTION=true
+// when building for Cloudflare; the GitHub Pages staging workflow
 // (.github/workflows/deploy.yml) never sets it, so this is the environment
-// signal that already distinguishes production from staging without adding
-// a separate flag.
+// signal that distinguishes production from staging.
 // PUBLIC_CF_BEACON_TOKEN needs a real beacon token from the Cloudflare
 // dashboard before this actually renders anything — see issue #18 for the
 // manual setup steps (enable Web Analytics, grab the token, generate the
 // shareable read-only link).
 const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN || '';
-const isProductionBuild = Boolean(process.env.WORKERS_CI);
+const isProductionBuild = Boolean(process.env.PUBLIC_PRODUCTION);
 const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
 
 const localBusinessJsonLd = buildLocalBusinessJsonLd();

@@ -1,0 +1,82 @@
+name: Promote to Production
+
+# Trunk-based dev (ADR-0004): main deploys to GitHub Pages staging on every
+# push (deploy.yml), but production only moves when this workflow is run by
+# hand. It tags whatever commit is chosen (defaulting to main's tip) so the
+# tag history is a record of what went to production and when, then builds
+# and deploys that exact snapshot with Wrangler. Replaces Cloudflare Workers
+# Builds' own dashboard git-integration auto-deploy (ADR-0003), which is
+# disabled to avoid both systems deploying the same push.
+#
+# Rollback: re-run this workflow with `ref` set to the last-good tag/SHA —
+# it re-tags today's date (so tag history stays truthful about when each
+# deploy actually happened) and redeploys that snapshot.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Commit SHA, branch, or tag to promote'
+        required: false
+        default: 'main'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: promote-production
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      # Date-stamped tags (prod-YYYY-MM-DD), with a -n suffix if today
+      # already has one (e.g. a same-day rollback re-promote).
+      - name: Compute production tag
+        id: tag
+        run: |
+          base="prod-$(date +%F)"
+          tag="$base"
+          n=1
+          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do
+            n=$((n + 1))
+            tag="$base-$n"
+          done
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Tag and push
+        run: |
+          git tag "${{ steps.tag.outputs.tag }}"
+          git push origin "${{ steps.tag.outputs.tag }}"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          # Tells astro.config.mjs / Layout.astro this is the production
+          # build (site URL, no /918dancehub base, Cloudflare beacon) —
+          # see ADR-0004. Cloudflare's own build system used to set
+          # WORKERS_CI for this; GitHub Actions has no equivalent, so this
+          # workflow sets it explicitly.
+          PUBLIC_PRODUCTION: 'true'
+          # Separate from staging's form (repo variable, deploy.yml) so a
+          # staging test submission can never land in Christina's real
+          # inbox — see ADR-0004.
+          PUBLIC_FORMSPREE_FORM_ID: ${{ vars.PUBLIC_FORMSPREE_FORM_ID_PRODUCTION }}
+          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy
