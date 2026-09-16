@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { SECRET_PATH, isGateActiveFor } from './src/data/gate.ts';
 
 // GitHub Pages staging needs a project-site base path (ADR-0001); Cloudflare
 // Workers production (ADR-0003) serves from the root of its own domain, so
@@ -15,8 +16,27 @@ import sitemap from '@astrojs/sitemap';
 // it using the same `site`, so both stay correct through the future swap.
 const isProductionBuild = Boolean(process.env.PUBLIC_PRODUCTION);
 
+// This file loads before Vite exists, so it reads `process.env` directly
+// rather than `import.meta.env` (unlike src/data/gate.ts's isGateActive(),
+// which runs inside Astro pages where import.meta.env is available) — same
+// staging/production signals, fed into the same isGateActiveFor() formula
+// gate.ts's isGateActive() wraps, so the two contexts can't drift apart.
+const isStaging = process.env.PUBLIC_STAGING === 'true';
+const gateActive = isGateActiveFor(isStaging, isProductionBuild);
+
 export default defineConfig({
   site: isProductionBuild ? 'https://918dancehub.jugisahunk.workers.dev' : 'https://jugisahunk.github.io',
   ...(isProductionBuild ? {} : { base: '/918dancehub' }),
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Coming Soon Gate (issue #40): the secret mirror path must never
+      // appear in the sitemap while gated — a hard requirement, not a
+      // nice-to-have (see docs/adr/0005-static-mirror-coming-soon-gate.md).
+      // Unaffected while ungated, since the mirror doesn't exist to filter.
+      // Matches SECRET_PATH as a whole path segment (not a substring) so
+      // this can't be defeated by a future trailingSlash/build.format
+      // change altering whether generated URLs end in a trailing slash.
+      filter: (page) => !gateActive || !new URL(page).pathname.split('/').includes(SECRET_PATH),
+    }),
+  ],
 });

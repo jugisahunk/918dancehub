@@ -1,0 +1,65 @@
+---
+// The Inquiry-sent thank-you page's content, extracted (issue #39) so it
+// renders identically at the root path and under the Coming Soon Gate's
+// secret mirror path.
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import BottomNav from './BottomNav.astro';
+
+interface Props {
+  // Coming Soon Gate mirror (issue #39): the "back to homepage" link must
+  // stay inside the same mirror instead of escaping to the root splash.
+  // Empty string at the real root path.
+  basePath?: string;
+}
+
+const { basePath = '' } = Astro.props;
+const homeHref = `${import.meta.env.BASE_URL}${basePath}/`.replace('//', '/');
+---
+
+<Header />
+<main>
+  <section class="thanks-band">
+    <div class="container thanks">
+      <p class="eyebrow">Inquiry Sent</p>
+      <h1>Thank you!</h1>
+      <p>
+        We got your message and a real person will get back to you soon. If it's urgent, call
+        or email us directly.
+      </p>
+      <a class="cta-pill" href={homeHref}> Back to the homepage </a>
+    </div>
+  </section>
+</main>
+<Footer />
+<BottomNav />
+
+<style>
+  .thanks-band {
+    padding: 4rem 0 5rem;
+  }
+
+  .thanks {
+    max-width: 60ch;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    margin: 0;
+  }
+
+  p {
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .cta-pill {
+    margin-top: 0.5rem;
+    text-decoration: none;
+  }
+</style>

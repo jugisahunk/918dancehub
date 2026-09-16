@@ -2,6 +2,16 @@
 import { site } from '../data/site';
 import ContactRows from './ContactRows.astro';
 
+interface Props {
+  // Coming Soon Gate mirror (issue #39): the path segment this instance of
+  // the homepage is rendered under, so the Inquiry form's thank-you
+  // redirect stays inside the same mirror instead of escaping back to the
+  // root splash. Empty string at the real root path.
+  basePath?: string;
+}
+
+const { basePath = '' } = Astro.props;
+
 // Inquiry form schema: docs/content-model.md#inquiry. Posts to Formspree
 // (ADR-0001) — FORMSPREE_FORM_ID needs a real form id before launch.
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
@@ -12,7 +22,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
 // absolute URL here, built from `site`/`base` the same way robots.txt.ts
 // does so it stays correct through the future production-domain swap
 // (issue #11).
-const thankYouPath = `${import.meta.env.BASE_URL}/thank-you`.replace('//', '/');
+const thankYouPath = `${import.meta.env.BASE_URL}${basePath}/thank-you`.replace('//', '/');
 const thankYouUrl = new URL(thankYouPath, Astro.site).href;
 ---
 

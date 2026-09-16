@@ -1,0 +1,25 @@
+---
+// Privacy policy — built at `/privacy-policy` while ungated, or only at the
+// secret mirror path's `/{SECRET_PATH}/privacy-policy` while gated (issue
+// #39). Never both: while gated, `/privacy-policy` simply isn't built and
+// 404s naturally, per the spec's "no page other than the root splash exists
+// at a top-level path" while gated.
+import Layout from '../../layouts/Layout.astro';
+import PrivacyPolicyContent from '../../components/PrivacyPolicyContent.astro';
+import { site } from '../../data/site';
+import { SECRET_PATH, isGateActive } from '../../data/gate';
+
+export function getStaticPaths() {
+  if (isGateActive()) {
+    return [{ params: { base: SECRET_PATH } }];
+  }
+  return [{ params: { base: undefined } }];
+}
+---
+
+<Layout
+  title={`Privacy Policy — ${site.shortName}`}
+  description={`How ${site.legalName} handles information submitted through this website.`}
+>
+  <PrivacyPolicyContent />
+</Layout>
