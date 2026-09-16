@@ -1,0 +1,30 @@
+---
+// Formspree's `_next` redirect target for the Inquiry form (see
+// ContactSection.astro) — its own page/route so a submitted Inquiry shows up
+// as a distinct pageview in Cloudflare Web Analytics (issue #19), not just a
+// generic homepage view.
+//
+// Built at `/thank-you` while ungated, or only at the secret mirror path's
+// `/{SECRET_PATH}/thank-you` while gated (issue #39) — same never-both rule
+// as privacy-policy.astro in this directory.
+import Layout from '../../layouts/Layout.astro';
+import ThankYouContent from '../../components/ThankYouContent.astro';
+import { site } from '../../data/site';
+import { SECRET_PATH, isGateActive } from '../../data/gate';
+
+export function getStaticPaths() {
+  if (isGateActive()) {
+    return [{ params: { base: SECRET_PATH } }];
+  }
+  return [{ params: { base: undefined } }];
+}
+
+const basePath = Astro.params.base === SECRET_PATH ? `/${SECRET_PATH}` : '';
+---
+
+<Layout
+  title={`Thank You — ${site.shortName}`}
+  description={`Your Inquiry to ${site.legalName} was sent.`}
+>
+  <ThankYouContent basePath={basePath} />
+</Layout>

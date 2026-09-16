@@ -13,6 +13,16 @@ import TeachSection from './TeachSection.astro';
 import ContactSection from './ContactSection.astro';
 import Footer from './Footer.astro';
 import BottomNav from './BottomNav.astro';
+
+interface Props {
+  // Coming Soon Gate mirror (issue #39): the path segment this instance is
+  // rendered under (e.g. `/wooshywooshy`), threaded down to ContactSection
+  // so its Inquiry form redirects within the same mirror. Empty string at
+  // the real root path.
+  basePath?: string;
+}
+
+const { basePath = '' } = Astro.props;
 ---
 
 <Header />
@@ -24,7 +34,7 @@ import BottomNav from './BottomNav.astro';
   <VenueSection />
   <EventsSection />
   <TeachSection />
-  <ContactSection />
+  <ContactSection basePath={basePath} />
 </main>
 <Footer />
 <BottomNav />
