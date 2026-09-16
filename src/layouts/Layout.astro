@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { site } from '../data/site';
 import { venue } from '../data/venue';
 import { buildLocalBusinessJsonLd } from '../data/structured-data';
+import { isGateActive } from '../data/gate';
 
 interface Props {
   title?: string;
@@ -32,7 +33,13 @@ const {
 // reliably deindexes pages that get discovered via inbound links, where a
 // robots.txt disallow only blocks crawling and can still leave a bare URL
 // indexed with no snippet.
+//
+// Coming Soon Gate (issue #40): every page in a gated build also gets
+// noindex — including in production, and including the secret mirror
+// path's pages — as a defense-in-depth backstop behind the mirror being
+// unlinked and excluded from the sitemap (astro.config.mjs).
 const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
+const noindex = isStaging || isGateActive();
 
 // Cloudflare Web Analytics (issue #18) — cookie-less, no consent banner needed.
 // The "Promote to Production" workflow (ADR-0004) sets PUBLIC_PRODUCTION=true
@@ -61,7 +68,7 @@ const localBusinessJsonLd = structuredData ? buildLocalBusinessJsonLd() : null;
       href={`${import.meta.env.BASE_URL}/apple-touch-icon.png`.replace('//', '/')}
     />
     <meta name="generator" content={Astro.generator} />
-    {isStaging && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

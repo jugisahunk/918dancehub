@@ -15,16 +15,28 @@ export const COMING_SOON_GATE = false;
 // rotation is just changing this value and pushing.
 export const SECRET_PATH = 'wooshywooshy';
 
-// Whether this particular build should actually gate: only the two
-// CI-driven builds honor COMING_SOON_GATE at all — PUBLIC_STAGING
-// (deploy.yml) and PUBLIC_PRODUCTION (promote-production.yml), the same
-// signals Layout.astro/astro.config.mjs use to tell staging/production
-// apart from local dev. `astro dev` and a local `npm run build` never set
-// either, so this is always false there, regardless of the flag's
-// committed value. Shared here so root and the secret-path mirror
-// (src/pages/[...base]/*.astro) agree on exactly one condition.
+// Whether a build should actually gate, given whether it's a staging or
+// production build: only the two CI-driven builds honor COMING_SOON_GATE at
+// all — PUBLIC_STAGING (deploy.yml) and PUBLIC_PRODUCTION
+// (promote-production.yml). `astro dev` and a local `npm run build` never
+// set either, so this is always false there, regardless of the flag's
+// committed value.
+//
+// Takes its signals as plain booleans, rather than reading env vars itself,
+// so both of this project's two separate build-time contexts can share one
+// formula: Astro pages (isGateActive() below, reading import.meta.env) and
+// astro.config.mjs (which runs in plain Node before Vite exists, so it
+// reads process.env directly and calls this with its own values).
+export function isGateActiveFor(isStaging: boolean, isProductionBuild: boolean): boolean {
+  return COMING_SOON_GATE && (isStaging || isProductionBuild);
+}
+
+// Astro-page-context convenience wrapper — reads the two signals from
+// import.meta.env/process.env itself. Shared here so root and the
+// secret-path mirror (src/pages/[...base]/*.astro) agree on exactly one
+// condition.
 export function isGateActive(): boolean {
   const isStaging = import.meta.env.PUBLIC_STAGING === 'true';
   const isProductionBuild = Boolean(process.env.PUBLIC_PRODUCTION);
-  return COMING_SOON_GATE && (isStaging || isProductionBuild);
+  return isGateActiveFor(isStaging, isProductionBuild);
 }
