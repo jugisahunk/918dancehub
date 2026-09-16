@@ -80,3 +80,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy
+          # No local `wrangler` devDependency to auto-detect, so the action
+          # falls back to an old pinned default (3.90.0) that doesn't
+          # support an assets-only Worker with no `main` script (ADR-0003)
+          # — it errors "Missing entry-point". Pin a modern major instead.
+          wranglerVersion: '4'
