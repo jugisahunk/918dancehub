@@ -1,11 +1,9 @@
 // Singleton: docs/content-model.md#footer--social-links.
 export const footer = {
-  // Pending — quick fact to grab from Christina, not blocking (see map's
-  // "Not yet specified").
   social: {
-    instagram: null as string | null,
-    facebook: null as string | null,
-    tiktok: null as string | null,
+    instagram: 'https://www.instagram.com/918dancehub',
+    facebook: 'https://www.facebook.com/profile.php?id=61590633093849',
+    tiktok: 'https://www.tiktok.com/@918dancehubandevents',
   },
   explore: [
     { label: 'Classes', href: '#classes' },
