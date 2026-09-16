@@ -1,6 +1,14 @@
 ---
 import { mission } from '../data/mission';
 
+interface Props {
+  // Coming Soon Gate splash (issue #38) reuses this component verbatim but
+  // without CTAs, since their target sections don't exist on that page.
+  showCtas?: boolean;
+}
+
+const { showCtas = true } = Astro.props;
+
 // Hero fill: illustration direction line-art dancing couple (prototype
 // variant C, wayfinder #9) — stands in for real venue/dancer photography,
 // which isn't available until after Grand Opening.
@@ -12,10 +20,14 @@ import { mission } from '../data/mission';
       <div class="hero-badge">Opening Fall 2026 &middot; Tulsa</div>
       <h1 class="hero-h1">Where moves<br /><span class="script accent">create memories</span></h1>
       <p class="hero-sub">{mission.heroLine}</p>
-      <div class="hero-ctas">
-        <a href="#classes" class="cta-pill">See Class Schedule</a>
-        <a href="#venue" class="cta-outline">Rent the Venue</a>
-      </div>
+      {
+        showCtas && (
+          <div class="hero-ctas">
+            <a href="#classes" class="cta-pill">See Class Schedule</a>
+            <a href="#venue" class="cta-outline">Rent the Venue</a>
+          </div>
+        )
+      }
     </div>
     <div class="image-frame">
       <div class="image-frame-inner">

@@ -1,0 +1,23 @@
+---
+// Coming Soon Gate (issue #37/#38): a minimal pre-launch splash shown at
+// root instead of the real homepage. Just the existing Hero, verbatim
+// (its badge/headline/subhead already read as pre-launch messaging), minus
+// its CTAs — their target sections don't exist on this page — plus plain
+// email/phone contact rows. No Header/Footer/BottomNav: every link in them
+// targets a homepage section that isn't rendered here.
+import Hero from './Hero.astro';
+import ContactRows from './ContactRows.astro';
+---
+
+<main>
+  <Hero showCtas={false} />
+  <div class="container splash-contact">
+    <ContactRows />
+  </div>
+</main>
+
+<style>
+  .splash-contact {
+    padding: 1rem 0 3.5rem;
+  }
+</style>

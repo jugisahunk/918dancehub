@@ -7,6 +7,10 @@ import { buildLocalBusinessJsonLd } from '../data/structured-data';
 interface Props {
   title?: string;
   description?: string;
+  // Coming Soon Gate splash (issue #38) has no business content to
+  // describe, so it skips the LocalBusiness JSON-LD block emitted on every
+  // other page.
+  structuredData?: boolean;
 }
 
 // Defaults here are a fallback only — every page should pass its own
@@ -17,6 +21,7 @@ interface Props {
 const {
   title = `${site.name} | Tulsa, OK Dance Studio & Event Venue`,
   description = `West Coast Swing dance classes, private event rentals, and social dance nights at ${site.name}, ${venue.locationCopy}.`,
+  structuredData = true,
 } = Astro.props;
 
 // GitHub Pages staging (ADR-0001) must never rank in search over the real
@@ -42,7 +47,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN || '';
 const isProductionBuild = Boolean(process.env.PUBLIC_PRODUCTION);
 const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
 
-const localBusinessJsonLd = buildLocalBusinessJsonLd();
+const localBusinessJsonLd = structuredData ? buildLocalBusinessJsonLd() : null;
 ---
 
 <!doctype html>
@@ -74,7 +79,7 @@ const localBusinessJsonLd = buildLocalBusinessJsonLd();
         />
       )
     }
-    <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+    {localBusinessJsonLd && <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />}
   </head>
   <body>
     <slot />
