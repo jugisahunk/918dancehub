@@ -1,0 +1,67 @@
+---
+import { site } from '../data/site';
+import { venue } from '../data/venue';
+
+interface Props {
+  // The Coming Soon Gate splash (issue #38) reuses this component but omits
+  // the physical studio address — a bare address with no VenueSection
+  // around it to explain it doesn't fit a page whose whole point is
+  // "nothing to see yet".
+  includeStudio?: boolean;
+}
+
+const { includeStudio = false } = Astro.props;
+const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
+---
+
+<div class="contact-rows" style={`--contact-count: ${includeStudio ? 3 : 2}`}>
+  <a class="contact-row" href={`mailto:${site.email}`}>
+    <span class="label">Email</span>
+    <span class="value">{site.email}</span>
+  </a>
+  <a class="contact-row" href={phoneHref}>
+    <span class="label">Phone</span>
+    <span class="value">{site.phone}</span>
+  </a>
+  {
+    includeStudio && (
+      <div class="contact-row static">
+        <span class="label">Studio</span>
+        <span class="value">{venue.locationCopy}</span>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .contact-rows {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-decoration: none;
+    color: var(--text-3);
+    transition: color 0.2s ease;
+  }
+
+  .contact-row:hover {
+    color: var(--gold-hover);
+  }
+
+  .contact-row .label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: var(--text-4);
+  }
+
+  @media (min-width: 768px) {
+    .contact-rows {
+      grid-template-columns: repeat(var(--contact-count, 2), 1fr);
+    }
+  }
+</style>

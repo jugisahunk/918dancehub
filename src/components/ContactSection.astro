@@ -1,11 +1,10 @@
 ---
 import { site } from '../data/site';
-import { venue } from '../data/venue';
+import ContactRows from './ContactRows.astro';
 
 // Inquiry form schema: docs/content-model.md#inquiry. Posts to Formspree
 // (ADR-0001) — FORMSPREE_FORM_ID needs a real form id before launch.
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID';
-const phoneHref = `tel:+1${site.phone.replace(/\D/g, '')}`;
 
 // Formspree's `_next` redirect (issue #19) sends a successful Inquiry to its
 // own page rather than back to this one, so the submission shows up as a
@@ -62,19 +61,8 @@ const thankYouUrl = new URL(thankYouPath, Astro.site).href;
       </form>
     </div>
 
-    <div class="contact-rows">
-      <a class="contact-row" href={`mailto:${site.email}`}>
-        <span class="label">Email</span>
-        <span class="value">{site.email}</span>
-      </a>
-      <a class="contact-row" href={phoneHref}>
-        <span class="label">Phone</span>
-        <span class="value">{site.phone}</span>
-      </a>
-      <div class="contact-row static">
-        <span class="label">Studio</span>
-        <span class="value">{venue.locationCopy}</span>
-      </div>
+    <div class="contact-rows-wrap">
+      <ContactRows includeStudio />
     </div>
   </div>
 </section>
@@ -100,32 +88,10 @@ const thankYouUrl = new URL(thankYouPath, Astro.site).href;
     line-height: 1.6;
   }
 
-  .contact-rows {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .contact-rows-wrap {
     margin-top: 2.5rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .contact-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    text-decoration: none;
-    color: var(--text-3);
-    transition: color 0.2s ease;
-  }
-
-  .contact-row:hover {
-    color: var(--gold-hover);
-  }
-
-  .contact-row .label {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    color: var(--text-4);
   }
 
   .inquiry-form {
@@ -173,10 +139,6 @@ const thankYouUrl = new URL(thankYouPath, Astro.site).href;
   @media (min-width: 768px) {
     .contact-two-col {
       grid-template-columns: 1fr 1fr;
-    }
-
-    .contact-rows {
-      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style>
