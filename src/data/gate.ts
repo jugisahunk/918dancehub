@@ -6,7 +6,7 @@
 // script, while a plain .ts import does. Flip this to `true` and push to
 // turn the gate on for both staging and production; there is no dashboard
 // toggle and no date-based auto-lift by design.
-export const COMING_SOON_GATE = false;
+export const COMING_SOON_GATE = true;
 
 // The gate's unguessable mirror path segment (issue #39) — the real site
 // keeps building here, unchanged, while COMING_SOON_GATE hides it from the
