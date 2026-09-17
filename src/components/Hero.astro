@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { mission } from '../data/mission';
+import heroImage from '../assets/wcs-silhouette-1.png';
 
 interface Props {
   // Coming Soon Gate splash (issue #38) reuses this component verbatim but
@@ -8,10 +10,6 @@ interface Props {
 }
 
 const { showCtas = true } = Astro.props;
-
-// Hero fill: illustration direction line-art dancing couple (prototype
-// variant C, wayfinder #9) — stands in for real venue/dancer photography,
-// which isn't available until after Grand Opening.
 ---
 
 <section class="hero-band" id="top">
@@ -31,26 +29,7 @@ const { showCtas = true } = Astro.props;
     </div>
     <div class="image-frame">
       <div class="image-frame-inner">
-        <svg width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="400" height="400" fill="var(--bg-deep)" />
-          <g fill="none" stroke="var(--gold-light)" stroke-width="2.2" stroke-linecap="round">
-            <circle cx="165" cy="120" r="16" />
-            <path d="M165 136 L165 210" />
-            <path d="M165 155 L120 190" />
-            <path d="M165 155 L215 175" />
-            <path d="M165 210 L135 280" />
-            <path d="M165 210 L195 270" />
-          </g>
-          <g fill="none" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round">
-            <circle cx="245" cy="135" r="16" />
-            <path d="M245 151 L245 220" />
-            <path d="M245 170 L290 195" />
-            <path d="M245 170 L215 175" />
-            <path d="M245 220 L215 285" />
-            <path d="M245 220 L280 275" />
-          </g>
-          <path d="M120 320 Q200 300 300 320" stroke="var(--gold)" stroke-width="1" opacity=".4" fill="none" />
-        </svg>
+        <Image src={heroImage} width={800} height={800} densities={[1, 1.5, 2]} alt="Silhouette of two dancers connected hand-to-hand mid-pattern, West Coast Swing style" />
       </div>
     </div>
   </div>
@@ -127,6 +106,12 @@ const { showCtas = true } = Astro.props;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+  }
+
+  .image-frame-inner :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   @media (max-width: 767px) {
