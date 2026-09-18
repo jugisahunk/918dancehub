@@ -8,7 +8,7 @@
 export const venue = {
   // Real street address (ADR-0002) — revealed early since it was already
   // public on the Google Business Profile listing and Facebook.
-  locationCopy: '2732 S Memorial Dr, Tulsa, OK 74129',
+  locationCopy: '2735 S Memorial Dr, Tulsa, OK 74129',
   description: 'A premier destination for big moments.',
   stats: [
     { value: 'TBD', label: 'Sq ft floor', pending: true },

@@ -46,7 +46,7 @@ export function buildLocalBusinessJsonLd() {
     email: site.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '2732 S Memorial Dr',
+      streetAddress: '2735 S Memorial Dr',
       addressLocality: 'Tulsa',
       addressRegion: 'OK',
       postalCode: '74129',
