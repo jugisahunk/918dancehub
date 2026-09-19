@@ -7,9 +7,8 @@ import { SECRET_PATH, isGateActiveFor } from './src/data/gate.ts';
 // Workers production (ADR-0003) serves from the root of its own domain, so
 // it must NOT inherit that base — PUBLIC_PRODUCTION (set by the "Promote to
 // Production" workflow, ADR-0004; also used the same way in Layout.astro)
-// tells these apart. `site` is hardcoded to the assigned *.workers.dev
-// domain — this will need swapping to the real custom domain once DNS is
-// pointed at it (issue #11).
+// tells these apart. `site` matches site.ts's `domain` (issue #11 — DNS now
+// points 918dancehubandevents.com and its www subdomain at the Worker).
 //
 // @astrojs/sitemap reads `site` (and respects `base`) to emit sitemap-index.xml
 // / sitemap-0.xml at build time — see src/pages/robots.txt.ts, which points at
@@ -25,7 +24,7 @@ const isStaging = process.env.PUBLIC_STAGING === 'true';
 const gateActive = isGateActiveFor(isStaging, isProductionBuild);
 
 export default defineConfig({
-  site: isProductionBuild ? 'https://918dancehub.jugisahunk.workers.dev' : 'https://jugisahunk.github.io',
+  site: isProductionBuild ? 'https://www.918dancehubandevents.com' : 'https://jugisahunk.github.io',
   ...(isProductionBuild ? {} : { base: '/918dancehub' }),
   integrations: [
     sitemap({
