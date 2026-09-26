@@ -1,8 +1,9 @@
 // Singleton: docs/content-model.md#venue. wayfinder #13 (Gather Event
-// Rentals / Venue content) answered facility sqFt, but the "Sq ft floor"
-// stat needs the dance-floor size specifically, which Christina won't have
-// until 10/1/2026 — so it's TBD along with guestCapacity/minRentalHours/
-// availability. Per Christina, pricing/what's-included/deposit terms are
+// Rentals / Venue content). "Sq ft floor" is the dance floor only: the
+// L-shaped floor is two sections, 25x45 (1,125) + 15x30 (450) = 1,575.
+// Min. rental (4 hr) and availability (7 days a week) are per Christina.
+// guestCapacity is the only stat still TBD — it waits on the venue
+// inspection. Per Christina, pricing/what's-included/deposit terms are
 // deliberately NOT shown on the site — those come after a tour and
 // contract, hence no fields for them here.
 export const venue = {
@@ -11,10 +12,10 @@ export const venue = {
   locationCopy: '2735 S Memorial Dr, Tulsa, OK 74129',
   description: 'A premier destination for big moments.',
   stats: [
-    { value: 'TBD', label: 'Sq ft floor', pending: true },
+    { value: '1,575', label: 'Sq ft floor' },
     { value: 'TBD', label: 'Guest capacity', pending: true },
-    { value: 'TBD', label: 'Min. rental', pending: true },
-    { value: 'TBD', label: 'Availability', pending: true },
+    { value: '4 hr', label: 'Min. rental' },
+    { value: '7 days', label: 'Availability' },
   ],
   eventTypes: [
     'Holiday parties',
