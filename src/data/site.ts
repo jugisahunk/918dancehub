@@ -7,5 +7,5 @@ export const site = {
   legalName: '918 Dance Hub & Events LLC',
   domain: 'www.918dancehubandevents.com',
   email: '918dancehubandevents@gmail.com',
-  phone: '(918) 853-1801',
+  phone: '(918) 200-9059',
 };
