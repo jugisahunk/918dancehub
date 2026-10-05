@@ -1,0 +1,53 @@
+<aside class="grand-opening" aria-label="Grand Opening announcement">
+  <div class="container grand-opening-inner">
+    <span class="grand-opening-label">Grand Opening</span>
+    <p class="grand-opening-text">
+      Join us Saturday, October 10, 2026 at 2735 S Memorial Dr, Tulsa.
+    </p>
+    <a href="#contact" class="grand-opening-link">Get in Touch</a>
+  </div>
+</aside>
+
+<style>
+  .grand-opening {
+    background: var(--gold-grad);
+    color: #1a1204;
+    padding: 0.8rem 0;
+  }
+
+  .grand-opening-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+  }
+
+  .grand-opening-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 700;
+  }
+
+  .grand-opening-text {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .grand-opening-link {
+    color: #1a1204;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 768px) {
+    .grand-opening-inner {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+  }
+</style>
