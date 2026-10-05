@@ -1,6 +1,9 @@
 ---
 // Kept in sync with Header.astro's mobile menu (navLinks + Get in Touch)
 // so the bottom nav and hamburger menu offer the same destinations.
+import { homeUrl } from '../data/site-paths';
+
+const home = homeUrl(Astro.url.pathname);
 const items = [
   { href: '#classes', label: 'Classes', mark: 'I' },
   { href: '#venue', label: 'Venue', mark: 'II' },
@@ -13,7 +16,7 @@ const items = [
 <nav class="bottom-nav" aria-label="Quick jump">
   {
     items.map((item) => (
-      <a href={item.href} data-interest={item.interest}>
+      <a href={`${home}${item.href}`} data-interest={item.interest}>
         <span class="mark">{item.mark}</span>
         <span class="label">{item.label}</span>
       </a>

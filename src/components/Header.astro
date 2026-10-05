@@ -1,7 +1,9 @@
 ---
 import LogoMark from './LogoMark.astro';
 import { site } from '../data/site';
+import { homeUrl } from '../data/site-paths';
 
+const home = homeUrl(Astro.url.pathname);
 const navLinks = [
   { label: 'Classes', href: '#classes' },
   { label: 'Venue', href: '#venue' },
@@ -12,7 +14,7 @@ const navLinks = [
 
 <header>
   <div class="container header-inner">
-    <a class="logo-row" href="#top" aria-label="918 Dance Hub home">
+    <a class="logo-row" href={home} aria-label="918 Dance Hub home">
       <LogoMark />
       <span class="logo-text-lockup">
         <span class="name">{site.name}</span>
@@ -21,8 +23,8 @@ const navLinks = [
     </a>
 
     <nav class="nav-links" aria-label="Primary">
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-      <a href="#contact" class="cta-pill" data-interest="General Inquiry">Get in Touch</a>
+      {navLinks.map((link) => <a href={`${home}${link.href}`}>{link.label}</a>)}
+      <a href={`${home}#contact`} class="cta-pill" data-interest="General Inquiry">Get in Touch</a>
     </nav>
 
     <button
@@ -39,8 +41,8 @@ const navLinks = [
   </div>
 
   <div class="mobile-menu" id="mobile-menu" hidden>
-    {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-    <a href="#contact" class="cta-pill mobile-cta" data-interest="General Inquiry">Get in Touch</a>
+    {navLinks.map((link) => <a href={`${home}${link.href}`}>{link.label}</a>)}
+    <a href={`${home}#contact`} class="cta-pill mobile-cta" data-interest="General Inquiry">Get in Touch</a>
   </div>
 </header>
 

@@ -1,8 +1,10 @@
 ---
 import { footer } from '../data/footer';
 import { site } from '../data/site';
+import { homeUrl } from '../data/site-paths';
 
 const year = new Date().getFullYear();
+const home = homeUrl(Astro.url.pathname);
 const socials = [
   { label: 'IG', href: footer.social.instagram },
   { label: 'FB', href: footer.social.facebook },
@@ -35,14 +37,14 @@ const socials = [
     </div>
     <div class="footer-col">
       <div class="col-heading">Explore</div>
-      {footer.explore.map((link) => <a href={link.href}>{link.label}</a>)}
+      {footer.explore.map((link) => <a href={`${home}${link.href}`}>{link.label}</a>)}
     </div>
     <div class="footer-col">
       <div class="col-heading">Info</div>
       {
         footer.info.map((link) =>
           link.href ? (
-            <a href={link.href}>{link.label}</a>
+            <a href={`${home}${link.href}`}>{link.label}</a>
           ) : (
             <span class="pending" title="Destination pending">
               {link.label}

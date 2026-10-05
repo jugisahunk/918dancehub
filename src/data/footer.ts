@@ -19,5 +19,7 @@ export const footer = {
     { label: 'Private Lessons', href: null as string | null },
     { label: 'Gift Cards', href: null as string | null },
     { label: 'Privacy Policy', href: 'privacy-policy' as string | null },
+  // Hrefs here are home-relative (`#contact`, `privacy-policy`): Footer.astro
+  // prefixes them with homeUrl() so they resolve from any page.
   ],
 };
