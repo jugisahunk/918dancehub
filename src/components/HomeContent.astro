@@ -3,6 +3,7 @@
 // identically at the root path and, in a later ticket, at the Coming Soon
 // Gate's secret mirror path — defined once instead of duplicated by hand.
 import Header from './Header.astro';
+import GrandOpeningCallout from './GrandOpeningCallout.astro';
 import Hero from './Hero.astro';
 import FeatureGrid from './FeatureGrid.astro';
 import MissionSection from './MissionSection.astro';
@@ -26,6 +27,7 @@ const { basePath = '' } = Astro.props;
 ---
 
 <Header />
+<GrandOpeningCallout />
 <main>
   <Hero />
   <FeatureGrid />

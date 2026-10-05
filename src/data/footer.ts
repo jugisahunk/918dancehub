@@ -2,7 +2,7 @@
 export const footer = {
   social: {
     instagram: 'https://www.instagram.com/918dancehub',
-    facebook: 'https://www.facebook.com/profile.php?id=61590633093849',
+    facebook: 'https://www.facebook.com/share/1CAsCawqjV/',
     tiktok: 'https://www.tiktok.com/@918dancehubandevents',
   },
   explore: [
