@@ -71,6 +71,13 @@ const localBusinessJsonLd = structuredData ? buildLocalBusinessJsonLd() : null;
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
     <meta name="description" content={description} />
+    {
+      // Self-referencing canonical (Search Console flagged "Duplicate without
+      // user-selected canonical" — issue noticed 2026-10-07): without this,
+      // Google has no signal to prefer the https://www URL over the bare-HTTP
+      // or apex-domain variant that reach the same content.
+    }
+    <link rel="canonical" href={Astro.url.href} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
