@@ -75,6 +75,9 @@ jobs:
           # inbox — see ADR-0004.
           PUBLIC_FORMSPREE_FORM_ID: ${{ vars.PUBLIC_FORMSPREE_FORM_ID_PRODUCTION }}
           PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
+          # Microsoft Clarity (heatmaps/session recordings) — production only,
+          # same reasoning as the Cloudflare beacon token above.
+          PUBLIC_CLARITY_PROJECT_ID: ${{ vars.PUBLIC_CLARITY_PROJECT_ID }}
 
       - uses: cloudflare/wrangler-action@v3
         with:

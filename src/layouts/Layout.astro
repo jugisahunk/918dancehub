@@ -54,6 +54,16 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN || '';
 const isProductionBuild = Boolean(process.env.PUBLIC_PRODUCTION);
 const cfBeaconEnabled = isProductionBuild && cfBeaconToken.length > 0;
 
+// Microsoft Clarity (heatmaps, click tracking, session recordings) — added
+// 2026-10-07 because Cloudflare Web Analytics has no custom-event API and
+// can't show engagement, only pageviews. Production-only, same reasoning as
+// the Cloudflare beacon above: a staging visit (including Claude's own
+// preview checks) shouldn't pollute real visitor data. Unlike the Cloudflare
+// beacon, Clarity sets cookies — see PrivacyPolicyContent.astro's "Site
+// traffic" section, updated alongside this.
+const clarityProjectId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID || '';
+const clarityEnabled = isProductionBuild && clarityProjectId.length > 0;
+
 const localBusinessJsonLd = structuredData ? buildLocalBusinessJsonLd() : null;
 ---
 
@@ -90,6 +100,18 @@ const localBusinessJsonLd = structuredData ? buildLocalBusinessJsonLd() : null;
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon={`{"token": "${cfBeaconToken}"}`}
+        />
+      )
+    }
+    {
+      clarityEnabled && (
+        <script
+          type="text/javascript"
+          set:html={`(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "${clarityProjectId}");`}
         />
       )
     }
