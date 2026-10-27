@@ -5,14 +5,15 @@
 // site yet, noted here in case a "total space" figure is wanted later.
 // Min. rental (4 hr) and availability (7 days a week) are per Christina.
 // guestCapacity is the only stat still TBD — it waits on the venue
-// inspection. Per Christina, pricing/what's-included/deposit terms are
-// deliberately NOT shown on the site — those come after a tour and
-// contract, hence no fields for them here.
+// inspection. Starting price now shown per Christina (reverses the
+// earlier decision to withhold all pricing until after a tour) — full
+// what's-included/deposit terms still come after a tour and contract.
 export const venue = {
   // Real street address (ADR-0002) — revealed early since it was already
   // public on the Google Business Profile listing and Facebook.
   locationCopy: '2735 S Memorial Dr, Tulsa, OK 74129',
   description: 'A premier destination for big moments.',
+  pricingNote: 'Rentals start at $500 for our 4-hour minimum. Send us an inquiry for full details.',
   stats: [
     { value: '1,575', label: 'Sq ft floor' },
     { value: 'TBD', label: 'Guest capacity', pending: true },

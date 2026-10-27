@@ -1,0 +1,53 @@
+<aside class="hiring-banner" aria-label="Now hiring dance instructors">
+  <div class="container hiring-banner-inner">
+    <span class="hiring-banner-label">Now Hiring</span>
+    <p class="hiring-banner-text">
+      Seeking dance instructors of all styles — flexible schedule, room to grow your brand.
+    </p>
+    <a href="#teach" class="hiring-banner-link">Apply to Teach</a>
+  </div>
+</aside>
+
+<style>
+  .hiring-banner {
+    background: var(--gold-grad);
+    color: #1a1204;
+    padding: 0.8rem 0;
+  }
+
+  .hiring-banner-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+  }
+
+  .hiring-banner-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 700;
+  }
+
+  .hiring-banner-text {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .hiring-banner-link {
+    color: #1a1204;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 768px) {
+    .hiring-banner-inner {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+  }
+</style>
