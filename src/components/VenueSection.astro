@@ -2,6 +2,22 @@
 import { Image } from 'astro:assets';
 import { venue } from '../data/venue';
 import venueImage from '../assets/wcs-studio.png';
+import VenueGallery from './VenueGallery.astro';
+import venueDressedHero from '../assets/venue/venue-dressed-hero.jpg';
+import venueRoomOverview from '../assets/venue/room-overview.jpg';
+import venueDanceFloor from '../assets/venue/dance-floor-wide.jpg';
+import venueTableSeating from '../assets/venue/table-seating.jpg';
+import venueAccentLighting from '../assets/venue/accent-lighting-nook.jpg';
+
+// Photos of the space dressed for a private rental (wayfinder #13's photo
+// pass) — picked for variety of what they show, not near-duplicate angles.
+const venuePhotos = [
+  { src: venueDressedHero, alt: 'The event floor dressed for a private rental, with white ceiling draping, round tables, and colored accent lighting' },
+  { src: venueRoomOverview, alt: 'Full view of the event room set up with tables and the dance floor beneath draped ceiling fabric' },
+  { src: venueDanceFloor, alt: 'Wide view of the polished, empty dance floor ready for a rental event' },
+  { src: venueTableSeating, alt: "Round tables arranged around the dance floor, viewed from the dance floor's edge" },
+  { src: venueAccentLighting, alt: 'Colored accent lighting against the wall near the lounge and kitchenette pass-through' },
+];
 ---
 
 <section class="venue-band" id="venue">
@@ -41,6 +57,9 @@ import venueImage from '../assets/wcs-studio.png';
       <p class="tour-note">{venue.pricingNote}</p>
     </div>
   </div>
+  <div class="container venue-gallery-block">
+    <VenueGallery photos={venuePhotos} />
+  </div>
 </section>
 
 <style>
@@ -53,6 +72,10 @@ import venueImage from '../assets/wcs-studio.png';
     grid-template-columns: 1fr;
     gap: 2.5rem;
     align-items: center;
+  }
+
+  .venue-gallery-block {
+    margin-top: 2.5rem;
   }
 
   .image-frame {
