@@ -8,5 +8,5 @@ description: "A beginner-friendly introduction to line dancing with Tiffany. No 
 whatToWear: "No boots"
 pricing: "$10 per class, or $15 for both"
 startsOn: 2026-11-11
-order: 7
+order: 4
 ---
