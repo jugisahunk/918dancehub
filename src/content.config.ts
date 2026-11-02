@@ -31,6 +31,10 @@ const classes = defineCollection({
     // one entry for that day (by convention, the first lesson of the day).
     pricing: z.string().optional(),
     kind: z.enum(['lesson', 'practice']).default('lesson'),
+    // A class not yet running (announced ahead of its first session). Set
+    // per-entry, not once per day — unlike pricing, a day can mix classes
+    // that are already running with ones that haven't started yet.
+    startsOn: z.coerce.date().optional(),
     order: z.number(),
   }),
 });

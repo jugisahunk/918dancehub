@@ -1,10 +1,30 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 
+// Compared as calendar dates (UTC midnight), matching how `startsOn` is
+// parsed from a YAML date — an instant-based comparison would flip the
+// disclaimer off up to a day early for timezones west of UTC.
+const today = new Date(
+  Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate())
+);
+
+function upcomingLabel(startsOn: Date | undefined): string | null {
+  if (!startsOn || startsOn <= today) return null;
+  return `Starts ${startsOn.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  })}`;
+}
+
 const classes = await Promise.all(
   (await getCollection('classes'))
     .sort((a, b) => a.data.order - b.data.order)
-    .map(async (c) => ({ ...c, instructor: await getEntry(c.data.instructor) }))
+    .map(async (c) => ({
+      ...c,
+      instructor: await getEntry(c.data.instructor),
+      startsOnLabel: upcomingLabel(c.data.startsOn),
+    }))
 );
 
 // Grouped by day so pricing (which describes the whole night — both
@@ -50,6 +70,8 @@ const dayGroups = dayOrder.map((day) => {
                 <div class="class-level">
                   {c.data.level} &middot; {c.instructor.data.name}
                 </div>
+                {c.data.whatToWear && <div class="class-wear">{c.data.whatToWear}</div>}
+                {c.startsOnLabel && <div class="class-starts-on">{c.startsOnLabel}</div>}
               </div>
             ))}
             {pricing && <div class="day-pricing">{pricing}</div>}
@@ -158,6 +180,26 @@ const dayGroups = dayOrder.map((day) => {
     color: var(--teal-light);
     white-space: nowrap;
     font-size: 0.9rem;
+  }
+
+  .class-wear {
+    font-size: 0.78rem;
+    color: var(--text-4);
+    font-style: italic;
+  }
+
+  .class-starts-on {
+    display: inline-block;
+    margin-top: 0.2rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.15);
+    width: fit-content;
   }
 
   @media (min-width: 768px) {
